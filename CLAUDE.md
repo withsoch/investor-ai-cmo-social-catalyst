@@ -83,10 +83,10 @@ so they are deliberately kept out of `CASE_STUDIES` and everything it feeds
 (homepage results, ticker, hero chip, avatar stack). Never invent an outcome
 number for them; the `facts` tiles are deliverables ("4 pillars", "Weekly").
 Their images are samples of the work, in
-`public/images/case-studies/<slug>/`. `bruto-bakehouse` and `restoran-loulou`
-are sample catalogs made on spec, not paid engagements, and their images are
-AI-generated (the candid ones are built to look like customer photos): keep
-"Sample catalog" and the AI labelling (alt text, gallery notes) on those pages. When adding one, add the page, the
+`public/images/case-studies/<slug>/`. The images on `bruto-bakehouse` and
+`restoran-loulou` are AI-generated (the candid ones are built to look like
+customer photos): keep the AI labelling (alt text, gallery notes) on those
+pages. When adding one, add the page, the
 `WORK_CASE_STUDIES` entry and the `app/sitemap.ts` route.
 `components/Testimonials.tsx` (the old carousel) is currently unused. Two
 client photos are local (`public/images/case-studies/`); the other two are

@@ -5,7 +5,7 @@ import { Emphasis } from "@/components/ui/Emphasis";
 export const metadata: Metadata = {
   title: "Bruto Bakehouse: AI Product Visuals | Social Catalyst Case Study",
   description:
-    "A sample AI visual catalog for Bruto Bakehouse: two phone photos of their cookies turned into 17 studio, lifestyle and candid visuals for delivery apps, Instagram and story ads, with no shoot.",
+    "An AI visual catalog for Bruto Bakehouse: two phone photos of their cookies turned into 17 studio, lifestyle and candid visuals for delivery apps, Instagram and story ads, with no shoot.",
 };
 
 const IMG = "/images/case-studies/bruto-bakehouse";
@@ -23,14 +23,14 @@ const META = [
   { label: "Brand", value: "Bruto Bakehouse, cookie bakery" },
   { label: "Output", value: "AI visual catalog" },
   { label: "Scope", value: "Studio · Lifestyle · Candid" },
-  { label: "Engagement", value: "Sample catalog, made on spec, 2026" },
+  { label: "Year", value: "2026" },
 ];
 
 const STARTING = {
   title: "Every new cookie needs a new set of pictures.",
   paragraphs: [
     "A bakery like Bruto lives on its menu, and every flavour needs images for three very different places: a clean shot for the Wolt and Bolt Food listing, something warmer for Instagram, and something that looks real enough to work in a story ad.",
-    "The traditional route is a shoot for every drop: a photographer, a stylist, props and a day of production. This catalog tests a different one. Start from a quick phone photo of the cookie, and build everything else with AI, with zero logistical overhead.",
+    "The traditional route is a shoot for every drop: a photographer, a stylist, props and a day of production. This catalog takes a different one. Start from a quick phone photo of the cookie, and build everything else with AI, with zero logistical overhead.",
   ],
   constraints: [
     { title: "Three channels, three looks", body: "Delivery apps want clean studio shots, Instagram wants lifestyle, and story ads work best when they look candid." },
@@ -145,13 +145,13 @@ export default function BrutoBakehousePage() {
   return (
     <WorkCaseStudy
       slug="bruto-bakehouse"
-      eyebrow="AI Product Visuals · Sample catalog"
+      eyebrow="AI Product Visuals"
       title={
         <>
           Two phone photos in. <Emphasis>Seventeen visuals out.</Emphasis>
         </>
       }
-      lead="A sample AI visual catalog made for Bruto Bakehouse: two quick phone photos of their cookies, turned into studio, lifestyle and candid assets for delivery apps, Instagram and story ads, without a shoot."
+      lead="An AI visual catalog made for Bruto Bakehouse: two quick phone photos of their cookies, turned into studio, lifestyle and candid assets for delivery apps, Instagram and story ads, without a shoot."
       facts={FACTS}
       hero={{
         ratio: "4/5",

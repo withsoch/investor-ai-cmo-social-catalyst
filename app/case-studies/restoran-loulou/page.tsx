@@ -5,7 +5,7 @@ import { Emphasis } from "@/components/ui/Emphasis";
 export const metadata: Metadata = {
   title: "Restoran Loulou: AI Product Visuals | Social Catalyst Case Study",
   description:
-    "A sample AI visual catalog for Restoran Loulou: 17 studio, lifestyle and candid visuals of its brunch and specialty coffee for delivery apps, Instagram and story ads, built without a physical set-up.",
+    "An AI visual catalog for Restoran Loulou: 17 studio, lifestyle and candid visuals of its brunch and specialty coffee for delivery apps, Instagram and story ads, built without a physical set-up.",
 };
 
 const IMG = "/images/case-studies/restoran-loulou";
@@ -23,7 +23,7 @@ const META = [
   { label: "Brand", value: "Restoran Loulou, brunch & specialty coffee" },
   { label: "Output", value: "AI visual catalog" },
   { label: "Scope", value: "Studio · Lifestyle · Candid" },
-  { label: "Engagement", value: "Sample catalog, made on spec, 2026" },
+  { label: "Year", value: "2026" },
 ];
 
 const STARTING = {
@@ -38,7 +38,7 @@ const STARTING = {
     { title: "One product, one brand", body: "Across every image the hero product has to stay recognisably the same, so the catalog reads as one restaurant." },
   ],
   objective:
-    "Show what Loulou's menu could look like across every channel, in one catalog, before a single shoot is booked.",
+    "Give Loulou's menu one consistent, magazine-grade look across every channel, in one catalog, without booking a single shoot.",
 };
 
 const APPROACH = {
@@ -130,13 +130,13 @@ export default function RestoranLoulouPage() {
   return (
     <WorkCaseStudy
       slug="restoran-loulou"
-      eyebrow="AI Product Visuals · Sample catalog"
+      eyebrow="AI Product Visuals"
       title={
         <>
           A full brunch campaign, <Emphasis>without a single set-up.</Emphasis>
         </>
       }
-      lead="A sample AI visual catalog made for Restoran Loulou: its brunch and specialty coffee rendered as studio menu shots, styled lifestyle scenes and candid dining-room snaps, all without a physical set-up."
+      lead="An AI visual catalog made for Restoran Loulou: its brunch and specialty coffee rendered as studio menu shots, styled lifestyle scenes and candid dining-room snaps, all without a physical set-up."
       facts={FACTS}
       hero={{
         ratio: "4/5",
