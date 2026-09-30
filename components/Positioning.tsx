@@ -2,6 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Highlight } from "@/components/ui/Highlight";
 import { Icon } from "@/components/Icons";
 import { PlatformMark } from "@/components/PlatformIcons";
+import { Photo } from "@/components/ui/Photo";
 
 type Mock = "search" | "post" | "inbox";
 
@@ -79,10 +80,16 @@ function ProblemMock({ mock }: { mock: Mock }) {
           <span className="h-6 w-6 rounded-full bg-[conic-gradient(from_200deg,var(--color-sun),var(--color-brand),var(--color-channel-instagram),var(--color-sun))] p-[2px]">
             <span className="block h-full w-full rounded-full bg-white" />
           </span>
-          <span className="text-[0.7rem] font-semibold text-ink">yourbusiness</span>
+          <span className="text-[0.7rem] font-semibold text-ink">copperlane.coffee</span>
           <span className="ml-auto text-[0.62rem] text-muted">340 followers</span>
         </div>
-        <div className="mt-2.5 aspect-[16/9] rounded-lg bg-[linear-gradient(135deg,var(--color-lilac-soft),var(--color-peach)_55%,var(--color-sun-soft))]" />
+        <Photo
+          src="/Service Images/Tea-cup-on-the-table.png"
+          alt="A latte on a café counter, posted by a hypothetical coffee shop"
+          ratio="16/9"
+          sizes="240px"
+          className="mt-2.5 rounded-lg bg-peach"
+        />
         <div className="mt-2.5 flex items-center gap-2 text-[0.7rem] text-ink-soft">
           <svg viewBox="0 0 24 24" className="h-4 w-4 animate-pulse text-brand" fill="currentColor" aria-hidden="true">
             <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.5 3 5 6.4 5c2 0 3.3 1.1 4.1 2.3h3C14.3 6.1 15.6 5 17.6 5 21 5 23.1 8.5 21.6 11.8 19.5 16.4 12 21 12 21z" />

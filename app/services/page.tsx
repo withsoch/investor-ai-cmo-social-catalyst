@@ -8,7 +8,6 @@ import { HeroPhoto, FloatChip } from "@/components/HeroPhoto";
 import { PlatformMark } from "@/components/PlatformIcons";
 import { StatValue } from "@/components/StatCounter";
 import { Emphasis } from "@/components/ui/Emphasis";
-import { SpinBadge } from "@/components/ui/SpinBadge";
 import { PLATFORMS } from "@/lib/channels";
 import { CTAS } from "@/lib/content";
 
@@ -97,9 +96,6 @@ export default function ServicesPage() {
                 </div>
               </div>
             </FloatChip>
-            <div className="absolute -top-1 right-0 z-30 sm:-right-3">
-              <SpinBadge text="7 categories · 1 system · " size={100} icon="social" />
-            </div>
           </HeroPhoto>
         }
       />

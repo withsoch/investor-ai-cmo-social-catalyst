@@ -8,7 +8,6 @@ import { CtaBand } from "@/components/CtaBand";
 import { InnerHero } from "@/components/InnerHero";
 import { Icon } from "@/components/Icons";
 import { Emphasis } from "@/components/ui/Emphasis";
-import { SpinBadge } from "@/components/ui/SpinBadge";
 import { CASE_STUDIES, CTAS, WORK_CASE_STUDIES, headlineMetric } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -159,9 +158,6 @@ export default function CaseStudiesPage() {
                   </Link>
                 );
               })}
-            </div>
-            <div className="absolute -right-2 -top-2 z-20 sm:-right-4">
-              <SpinBadge text="Verified with the client · " size={96} icon="check" />
             </div>
           </div>
         }

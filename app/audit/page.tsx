@@ -7,7 +7,6 @@ import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/ui/Reveal";
 import { Aurora } from "@/components/ui/Aurora";
 import { Emphasis } from "@/components/ui/Emphasis";
-import { SpinBadge } from "@/components/ui/SpinBadge";
 import { InnerHero } from "@/components/InnerHero";
 import { ProofPill } from "@/components/ProofPill";
 import {
@@ -94,9 +93,6 @@ export default function AuditPage() {
                 <Icon name="check" className="h-3.5 w-3.5 text-leaf" strokeWidth={2.6} />
               </span>
               <span className="text-[0.75rem] font-semibold text-ink">Delivered within 24h</span>
-            </div>
-            <div className="absolute right-0 top-0 z-20">
-              <SpinBadge text="Read by a person · No templates · " size={88} tone="brand" icon="pen" />
             </div>
           </div>
         }
