@@ -8,7 +8,6 @@ import { CtaBand } from "@/components/CtaBand";
 import { InnerHero } from "@/components/InnerHero";
 import { Icon } from "@/components/Icons";
 import { Emphasis } from "@/components/ui/Emphasis";
-import { SpinBadge } from "@/components/ui/SpinBadge";
 import { CASE_STUDIES, CTAS, WORK_CASE_STUDIES, headlineMetric } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -76,7 +75,13 @@ const RESULT_CARDS: GridCard[] = CARDS.map((c) => ({
   cta: "Read success story",
 }));
 
-const WORK_CARDS: GridCard[] = WORK_CASE_STUDIES.map((w) => ({
+/** Work pieces that sit at the end of the grid rather than near the top. */
+const WORK_LAST = ["soch-social-media", "soch-landing-page"];
+
+const WORK_CARDS: GridCard[] = [
+  ...WORK_CASE_STUDIES.filter((w) => !WORK_LAST.includes(w.slug)),
+  ...WORK_CASE_STUDIES.filter((w) => WORK_LAST.includes(w.slug)),
+].map((w) => ({
   href: `/case-studies/${w.slug}`,
   image: w.image,
   alt: w.imageAlt,
@@ -159,9 +164,6 @@ export default function CaseStudiesPage() {
                   </Link>
                 );
               })}
-            </div>
-            <div className="absolute -right-2 -top-2 z-20 sm:-right-4">
-              <SpinBadge text="Verified with the client · " size={96} icon="check" />
             </div>
           </div>
         }

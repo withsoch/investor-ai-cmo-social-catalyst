@@ -7,8 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Marketing site for **Social Catalyst**, a social media marketing agency for B2B
 and growing businesses — Instagram, LinkedIn (company pages and outreach),
 Google Business Profile, review management, AI-produced images and video,
-one-page websites, and paid social ads. Captions are written in Estonian and
-English. Pricing is quote-based: no package prices appear on the site. Live at
+one-page websites, and paid social ads. Pricing is quote-based: no package prices appear on the site. Live at
 `www.withsocialcatalyst.com`. Next.js 16 (App Router) · React 19 · TypeScript ·
 Tailwind CSS v4 · Motion.
 

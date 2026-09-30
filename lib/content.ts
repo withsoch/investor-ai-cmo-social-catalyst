@@ -96,7 +96,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
     blurb: "Your feed stays busy every week without you touching it.",
     highlights: [
       "8 to 20 posts a month, written and scheduled for you",
-      "Captions written in Estonian and English",
+      "Captions written in your brand's voice",
     ],
     services: [
       {
@@ -134,11 +134,6 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         description:
           "We answer your DMs and comments Monday to Friday, usually within a few hours. Nobody asking a question gets left on read.",
       },
-      {
-        title: "Estonian + English Captions",
-        description:
-          "Every caption written twice, once in Estonian and once in English. Local and international contacts both read it properly and both reach out.",
-      },
     ],
   },
   {
@@ -166,7 +161,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
       {
         title: "Review Replies",
         description:
-          "Every review answered inside 24 hours, in Estonian or English. Difficult ones handled calmly, and we check with you before replying to those.",
+          "Every review answered inside 24 hours. Difficult ones handled calmly, and we check with you before replying to those.",
       },
       {
         title: "Google Maps Visibility",
@@ -336,7 +331,7 @@ export const PACKAGES: Package[] = [
     slug: "growth",
     name: "Growth",
     audience: "For a business that posts sometimes and knows it should do more.",
-    outcome: "Show up on every channel your buyers already use, in two languages.",
+    outcome: "Show up on every channel your buyers already use.",
     popular: true,
     track: "core",
     features: [
@@ -346,7 +341,6 @@ export const PACKAGES: Package[] = [
       "12 Instagram posts, 12 stories, 2 short videos a month",
       "10 custom images a month",
       "Every Google review answered within 24 hours",
-      "Captions written in Estonian and English",
       "Monthly plain-language performance report",
     ],
   },
@@ -449,7 +443,7 @@ export const STEPS: Step[] = [
     icon: "image",
     title: "Look Active, Every Week",
     description:
-      "Photos, posts, stories and review replies on a fixed schedule, written for your business in Estonian and English.",
+      "Photos, posts, stories and review replies on a fixed schedule, written for your business.",
   },
   {
     no: "04",
@@ -721,7 +715,6 @@ export const PROOF_TICKER: string[] = [
   }),
   "Every Google review answered within 24h",
   "You approve 100% of posts",
-  "Captions in Estonian + English",
   "5 channels, one plan",
 ];
 
@@ -874,6 +867,6 @@ export const FAQS: FaqItem[] = [
   },
   {
     q: "How much of my week does this take?",
-    a: "About 20 minutes a month approving the content calendar, plus one 30-minute call at the start. You don't write captions, pick photos or answer reviews. We will ask how your business talks, once, so the captions sound like you in both Estonian and English. If a month needs more than that from you, we've built it wrong.",
+    a: "About 20 minutes a month approving the content calendar, plus one 30-minute call at the start. You don't write captions, pick photos or answer reviews. We will ask how your business talks, once, so the captions sound like you. If a month needs more than that from you, we've built it wrong.",
   },
 ];

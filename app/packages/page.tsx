@@ -7,7 +7,6 @@ import { ProofPill } from "@/components/ProofPill";
 import { ClientAvatarStack } from "@/components/ClientAvatarStack";
 import { Emphasis } from "@/components/ui/Emphasis";
 import { Highlight } from "@/components/ui/Highlight";
-import { SpinBadge } from "@/components/ui/SpinBadge";
 import { PackageCard } from "@/components/PackageCard";
 import { CtaBand } from "@/components/CtaBand";
 import { Faq } from "@/components/Faq";
@@ -73,9 +72,6 @@ export default function PackagesPage() {
                 <p className="mt-1 max-w-[11rem] text-[0.72rem] leading-snug text-ink-soft">{t.label}</p>
               </FloatChip>
             ))}
-            <div className="absolute -top-1 right-0 z-30 sm:-right-3">
-              <SpinBadge text="Quote in 30 minutes · " size={100} icon="clock" />
-            </div>
           </HeroPhoto>
         }
       />

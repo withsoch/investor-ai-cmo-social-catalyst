@@ -206,8 +206,8 @@ function SocialMediaVisual() {
         </div>
       </div>
       <div className={`${chip} -right-2 -top-3 flex w-auto items-center gap-2 animate-float-b`}>
-        <Icon name="globe" className="h-4 w-4 text-brand" strokeWidth={1.8} />
-        <p className="text-[0.68rem] font-semibold text-ink">Captions in ET + EN</p>
+        <Icon name="chat" className="h-4 w-4 text-brand" strokeWidth={1.8} />
+        <p className="text-[0.68rem] font-semibold text-ink">Captions in your voice</p>
       </div>
     </Stage>
   );

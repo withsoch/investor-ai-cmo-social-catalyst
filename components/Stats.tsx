@@ -18,7 +18,7 @@ export function Stats() {
             >
               <StatValue
                 value={s.value}
-                className="block text-[3rem] leading-none text-ink sm:text-[3.6rem] [&>span]:!text-white"
+                className="block text-[3rem] leading-none text-ink sm:text-[3.6rem] [&>span]:!text-ink"
                 style={{ fontFamily: "var(--font-display)", fontWeight: 500 }}
               />
               <p className="mx-auto mt-3 max-w-[12rem] text-sm font-medium text-ink">{s.label}</p>

@@ -13,7 +13,6 @@ import { Avatar } from "@/components/ui/Avatar";
 import { Photo } from "@/components/ui/Photo";
 import { Emphasis } from "@/components/ui/Emphasis";
 import { Highlight } from "@/components/ui/Highlight";
-import { SpinBadge } from "@/components/ui/SpinBadge";
 import { CTAS, TEAM } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -33,8 +32,8 @@ const VALUES: { icon: IconName; title: string; body: string }[] = [
   },
   {
     icon: "chat",
-    title: "Your voice, in two languages",
-    body: "We learn how your business talks and write captions in Estonian and English, so local and international contacts both feel spoken to. We never publish a template with your name swapped in.",
+    title: "Your voice, not a template",
+    body: "We learn how your business talks and write every caption to sound like you, so your customers feel spoken to. We never publish a template with your name swapped in.",
   },
   {
     icon: "target",
@@ -85,13 +84,8 @@ export default function AboutPage() {
             imgClassName="object-[55%_center]"
           >
             <FloatChip className="-left-2 top-2 hidden sm:block" float="animate-float-a">
-              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-muted">Every caption</p>
-              <p className="mt-1.5 flex items-center gap-1.5">
-                <span className="rounded-md bg-ink px-2 py-0.5 text-[0.72rem] font-bold text-white">EE</span>
-                <span className="text-[0.72rem] text-muted">+</span>
-                <span className="rounded-md bg-brand px-2 py-0.5 text-[0.72rem] font-bold text-white">EN</span>
-                <span className="ml-1 text-[0.78rem] font-semibold text-ink">Written twice</span>
-              </p>
+              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-muted">Every post</p>
+              <p className="mt-1 text-[0.78rem] font-semibold text-ink">Approved by you first</p>
             </FloatChip>
             <FloatChip className="-left-1 bottom-1 sm:-left-6" float="animate-float-c">
               <div className="flex items-center gap-2.5">
@@ -102,9 +96,6 @@ export default function AboutPage() {
                 </div>
               </div>
             </FloatChip>
-            <div className="absolute -top-1 right-0 z-30 sm:-right-3">
-              <SpinBadge text="Real posts · Real replies · " size={100} />
-            </div>
           </HeroPhoto>
         }
       />

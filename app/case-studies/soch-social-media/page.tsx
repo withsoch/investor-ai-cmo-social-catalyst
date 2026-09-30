@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 const IMG = "/images/case-studies/soch-social-media";
 
 const FACTS = [
-  { value: "Built from 0", label: "Account, visual system and content archive created from scratch" },
-  { value: "4 pillars", label: "Every post produced against a defined strategic pillar" },
-  { value: "1 system", label: "Templates that cut design time per post and keep the grid coherent" },
+  { value: "Built from 0", label: "Account, visuals and archive made from scratch" },
+  { value: "4 pillars", label: "Every post tied to a content pillar" },
+  { value: "1 system", label: "Templates that keep the grid consistent" },
 ];
 
 const META = [
@@ -26,33 +26,30 @@ const META = [
 const STARTING = {
   title: "A technical service, a non-technical buyer, and no audience to speak to.",
   paragraphs: [
-    "Soch builds AI and automation systems for founders and small teams. The service is genuinely technical. The people who buy it are usually not. That combination makes social media harder than it looks: post too shallow and you sound like every other AI account, post too deep and the buyer stops reading.",
-    "The account started with no audience, no visual language and no content archive to build on. Everything on the page today was designed and produced from scratch.",
+    "Soch builds AI and automation systems for founders and small teams. The service is technical; the buyers usually aren't. Too shallow and you sound like every AI account, too deep and they stop reading. The account started with no audience, no visual language and no archive.",
   ],
   constraints: [
-    { title: "Crowded category", body: "AI content is saturated with tool round-ups and hype. Standing out meant having a point of view, not more tips." },
-    { title: "No visual identity", body: "No templates, no palette discipline, no type hierarchy. Every post was starting from a blank canvas." },
-    { title: "Mixed audience", body: "Founders, operators and technical buyers all read the same feed. One tone had to work for all three." },
+    { title: "Crowded category", body: "AI content is full of tool round-ups and hype. Standing out needed a point of view." },
+    { title: "No visual identity", body: "No templates, palette or type hierarchy. Every post started blank." },
+    { title: "Mixed audience", body: "Founders, operators and technical buyers read the same feed. One tone had to fit all three." },
   ],
   objective:
-    "Turn the Instagram account into proof of expertise, so that a founder who has never heard of Soch can scroll the grid and understand exactly how the team thinks.",
+    "Make the grid proof of expertise: a founder who has never heard of Soch should see how the team thinks.",
 };
 
 const APPROACH = {
   title: "Four decisions that shaped everything else.",
-  lead: "Before a single post was designed, four things were settled. Every piece of content since has been produced against them, which is what keeps the feed coherent instead of decorative.",
   items: [
-    { title: "Positioning came before posting", body: "The account argues one thing consistently: automation fails because of unclear processes, not broken software. That single position gives every post a spine and makes the content impossible to confuse with generic AI advice." },
-    { title: "A locked visual system, not one-off graphics", body: "Two backgrounds, one accent colour, one type pairing, fixed margins. Designing inside constraints means posts are faster to produce, and the grid reads as one brand rather than a folder of unrelated images." },
-    { title: "Teach the thinking, not the tool", body: "Tool tutorials expire and attract the wrong audience. Frameworks, diagnostics and mental models age well and attract buyers. Every post gives away reasoning the reader can apply immediately." },
-    { title: "Format follows the message", body: "A contrast idea becomes a two-panel comparison. A process problem becomes a workflow map. A mindset shift becomes a carousel. The layout is chosen to carry the argument, not to fill a slot in the calendar." },
+    { title: "Positioning came before posting", body: "The account argues one thing: automation fails because of unclear processes, not broken software. It sets the content apart from generic AI advice." },
+    { title: "A locked visual system, not one-off graphics", body: "Two backgrounds, one accent colour, one type pairing, fixed margins. Posts are faster to make and the grid reads as one brand." },
+    { title: "Teach the thinking, not the tool", body: "Tool tutorials expire and attract the wrong audience. Frameworks and mental models age well and attract buyers." },
+    { title: "Format follows the message", body: "A contrast becomes a two-panel comparison, a process problem a workflow map, a mindset shift a carousel." },
   ],
-  closer: "The result is a feed where any single post makes sense on its own, and the whole grid still argues one thing.",
 };
 
 const GALLERY = {
   title: "The system in the feed.",
-  lead: "Single posts and carousels produced under the same system. Dark and cream layouts alternate deliberately so the grid has rhythm when viewed as a whole.",
+  lead: "Posts and carousels from one system, alternating dark and cream so the grid has rhythm.",
   ratio: "3/4",
   columns: 3 as const,
   images: [
@@ -73,33 +70,32 @@ const ANATOMY = {
   image: { src: `${IMG}/team-wasting-time.jpg`, alt: "Annotated example post: Your team is wasting time on admin" },
   ratio: "3/4",
   parts: [
-    { title: "Category label", body: "A small coral eyebrow tells the reader which pillar they are in before they read the hook." },
-    { title: "Hook with one highlight", body: "A short, confrontational statement. Exactly one phrase is set in coral so the eye knows where to land first." },
-    { title: "The reframe", body: "Two or three lines that turn the hook into a useful idea. Short enough to survive Instagram compression." },
-    { title: "A visual argument", body: "A diagram, comparison pair or workflow map that proves the point without extra copy. This is the part most accounts skip." },
-    { title: "Fixed footer", body: "The URL sits in the same position on every post, so the brand cue is consistent across the grid." },
+    { title: "Category label", body: "A small coral eyebrow names the pillar." },
+    { title: "Hook with one highlight", body: "A short, blunt line with one phrase in coral." },
+    { title: "The reframe", body: "Two or three lines that turn the hook into a useful idea." },
+    { title: "A visual argument", body: "A diagram, comparison or workflow map that proves the point." },
+    { title: "Fixed footer", body: "The URL in the same spot on every post." },
   ],
 };
 
 const RANGE = {
   title: "Four pillars the calendar rotates through.",
-  lead: "Pillars stop the feed drifting into whatever felt interesting that week. Each one does a different job in the buying process, from creating awareness of a problem through to showing what working with Soch actually looks like.",
   items: [
-    { tag: "Diagnostic", title: "Why automations fail", body: "Posts that name the real reason projects stall, usually undocumented or unstable human processes rather than technology. This pillar creates the problem awareness every other pillar depends on.", image: { src: `${IMG}/why-automations-fail.jpg`, alt: "Diagnostic pillar example post" } },
-    { tag: "Framework", title: "What to automate first", body: "Prioritisation content: the 80/20 rule of automation, ROI maths, workflow audits. Gives the reader a way to make a decision, which is the fastest route to being seen as credible.", image: { src: `${IMG}/80-20-rule.jpg`, alt: "Framework pillar example post" } },
-    { tag: "Mindset", title: "Systems over prompts", body: "The shift from typing prompts into a chat box to embedding AI into background workflows. This is the philosophical core of the brand and the pillar that differentiates it most sharply.", image: { src: `${IMG}/stop-typing-prompts.jpg`, alt: "Mindset pillar example post" } },
-    { tag: "Use case", title: "Operations teardowns", body: "Concrete examples: manual admin, batch email blasts, spreadsheet updates, approval chasing. Shows the work without turning the feed into a sales pitch.", image: { src: `${IMG}/stop-email-blasts.jpg`, alt: "Use-case pillar example post" } },
+    { tag: "Diagnostic", title: "Why automations fail", body: "Names the real reason projects stall: messy human processes, not technology.", image: { src: `${IMG}/why-automations-fail.jpg`, alt: "Diagnostic pillar example post" } },
+    { tag: "Framework", title: "What to automate first", body: "The 80/20 rule, ROI maths, workflow audits. Helps the reader decide.", image: { src: `${IMG}/80-20-rule.jpg`, alt: "Framework pillar example post" } },
+    { tag: "Mindset", title: "Systems over prompts", body: "From typing prompts to building AI into background workflows. The core of the brand.", image: { src: `${IMG}/stop-typing-prompts.jpg`, alt: "Mindset pillar example post" } },
+    { tag: "Use case", title: "Operations teardowns", body: "Manual admin, email blasts, spreadsheet updates. Shows the work without a sales pitch.", image: { src: `${IMG}/stop-email-blasts.jpg`, alt: "Use-case pillar example post" } },
   ],
 };
 
 const PROCESS = {
   title: "From pillar to published post.",
   steps: [
-    { title: "Pillar pick", body: "Each slot on the calendar is assigned a pillar before any idea is written." },
-    { title: "Hook first", body: "Copy is written and cut before design starts. Weak hooks get killed here." },
-    { title: "Template build", body: "Layout chosen from the system, then the visual argument is drawn." },
-    { title: "Caption + schedule", body: "Caption, hashtags and slot confirmed against the grid rhythm." },
-    { title: "Review", body: "Performance read back against the pillar to shape the next cycle." },
+    { title: "Pillar pick", body: "Each calendar slot gets a pillar first." },
+    { title: "Hook first", body: "Copy is written and cut before design." },
+    { title: "Template build", body: "Layout picked from the system, visual drawn." },
+    { title: "Caption + schedule", body: "Caption, hashtags and slot confirmed." },
+    { title: "Review", body: "Results shape the next cycle." },
   ],
   standards: [
     "Logo top-centre, fixed size",
@@ -116,14 +112,14 @@ const PROCESS = {
 const DELIVERED = {
   title: "Running the account, not just designing for it.",
   items: [
-    { title: "Content strategy", body: "Positioning, four content pillars, and a rolling calendar mapped to them." },
-    { title: "Visual system", body: "Palette, type hierarchy, layout rules and reusable templates for every format." },
-    { title: "Design production", body: "Single posts, multi-slide carousels and Reel covers, all built in-system." },
-    { title: "Copywriting", body: "Hooks, on-image copy and captions written to match the brand voice." },
-    { title: "Daily publishing", body: "Scheduling, hashtag sets, posting and consistency management." },
-    { title: "Community management", body: "Comments, DMs and engagement handled as part of the routine." },
-    { title: "Reporting", body: "Performance reviewed against pillars so the calendar adapts to what works." },
-    { title: "Profile build-out", body: "Bio, highlight covers and grid composition treated as one designed surface." },
+    { title: "Content strategy", body: "Positioning, four pillars and a rolling calendar." },
+    { title: "Visual system", body: "Palette, type, layout rules and templates." },
+    { title: "Design production", body: "Posts, carousels and Reel covers." },
+    { title: "Copywriting", body: "Hooks, on-image copy and captions." },
+    { title: "Daily publishing", body: "Scheduling, hashtags and posting." },
+    { title: "Community management", body: "Comments and DMs handled." },
+    { title: "Reporting", body: "Performance read against each pillar." },
+    { title: "Profile build-out", body: "Bio, highlight covers and grid layout." },
   ],
 };
 
@@ -137,7 +133,7 @@ export default function SochSocialMediaPage() {
           Building a brand presence <Emphasis>from zero followers.</Emphasis>
         </>
       }
-      lead="Full social media management and design for Soch, an AI automation agency. Positioning, visual system, content production and day-to-day publishing, built from the ground up."
+      lead="Social media management and design for Soch, an AI automation agency: positioning, visuals, content and daily publishing, built from scratch."
       facts={FACTS}
       hero={{
         ratio: "3/4",
@@ -157,7 +153,7 @@ export default function SochSocialMediaPage() {
       delivered={DELIVERED}
       cta={{
         title: "Want a feed that argues one thing?",
-        subtitle: "Get a quote. If your feed looks inconsistent or isn't bringing in the right audience, that's usually a systems problem, and it's fixable.",
+        subtitle: "Get a quote. An inconsistent feed is usually a systems problem, and it's fixable.",
       }}
     />
   );

@@ -10,7 +10,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Photo } from "@/components/ui/Photo";
 import { Aurora } from "@/components/ui/Aurora";
 import { Emphasis } from "@/components/ui/Emphasis";
-import { SpinBadge } from "@/components/ui/SpinBadge";
 import { TEAM } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -80,9 +79,6 @@ export default function BookPage() {
                 </span>
               </FloatChip>
             ))}
-            <div className="absolute -top-1 right-0 z-30 sm:-right-3">
-              <SpinBadge text="Free · 30 minutes · No pitch · " size={100} icon="calendar" />
-            </div>
           </HeroPhoto>
         }
       />
