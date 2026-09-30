@@ -11,9 +11,6 @@ import { Emphasis } from "@/components/ui/Emphasis";
 import { SpinBadge } from "@/components/ui/SpinBadge";
 import { CASE_STUDIES, CTAS, WORK_CASE_STUDIES, headlineMetric } from "@/lib/content";
 
-/** Tint per stat box, so each card's numbers read as a colourful row. */
-const STAT_TINTS = ["bg-peach", "bg-lilac-soft", "bg-sun-soft"];
-
 export const metadata: Metadata = {
   title: "Case Studies: Client Results | Social Catalyst",
   description:
@@ -27,11 +24,6 @@ const CARDS = [
     tags: ["LinkedIn Management"],
     title:
       "Turning a founder's LinkedIn into a consistent pipeline of qualified conversations",
-    stats: [
-      { value: "100%", label: "Posting consistency maintained" },
-      { value: "4×", label: "Growth in profile views within 60 days" },
-      { value: "12+", label: "Qualified inbound conversations in 90 days" },
-    ],
     href: "/case-studies/gaia-antonescu",
   },
   {
@@ -40,11 +32,6 @@ const CARDS = [
     tags: ["Personal Branding & Community Growth"],
     title:
       "Giving a movement founder the LinkedIn presence her mission deserved",
-    stats: [
-      { value: "3×", label: "Follower growth in 60 days" },
-      { value: "5+", label: "Partnership conversations opened" },
-      { value: "100%", label: "Consistent weekly content maintained" },
-    ],
     href: "/case-studies/biola-babawale",
   },
   {
@@ -53,11 +40,6 @@ const CARDS = [
     tags: ["Management Consulting"],
     title:
       "Turning 28 years of practitioner expertise into a LinkedIn presence that generates consulting pipeline",
-    stats: [
-      { value: "29%", label: "Outreach Reply Rate" },
-      { value: "6×", label: "Profile Views in 60 Days" },
-      { value: "11", label: "Qualified Conversations" },
-    ],
     href: "/case-studies/shahzad-akhtar",
   },
   {
@@ -66,16 +48,11 @@ const CARDS = [
     tags: ["Business Architecture"],
     title:
       "Making a distinctive offer legible: how a Private Operating House built the channel to match the work",
-    stats: [
-      { value: "3×", label: "Profile Views in 60 Days" },
-      { value: "22%", label: "Outreach Reply Rate" },
-      { value: "8", label: "Qualified Conversations" },
-    ],
     href: "/case-studies/kaitlin-malaspina",
   },
 ];
 
-/** One card shape for both kinds, each with three stat boxes. */
+/** One card shape for both kinds: photo, tags, byline, title and a link. */
 type GridCard = {
   href: string;
   image: string;
@@ -85,7 +62,6 @@ type GridCard = {
   tags: string[];
   byline: string;
   title: string;
-  stats: { value: string; label: string }[];
   cta: string;
 };
 
@@ -97,7 +73,6 @@ const RESULT_CARDS: GridCard[] = CARDS.map((c) => ({
   tags: c.tags,
   byline: c.initials.replace(" - ", " · "),
   title: c.title,
-  stats: c.stats,
   cta: "Read success story",
 }));
 
@@ -109,7 +84,6 @@ const WORK_CARDS: GridCard[] = WORK_CASE_STUDIES.map((w) => ({
   tags: w.scope,
   byline: `${w.client} · ${w.platform}`,
   title: w.title,
-  stats: w.stats,
   cta: "See the work",
 }));
 
@@ -230,20 +204,6 @@ export default function CaseStudiesPage() {
                       >
                         {card.title}
                       </h2>
-                    </div>
-
-                    <div className="grid w-full grid-cols-3 gap-2">
-                      {card.stats.map((st, k) => (
-                        <div key={st.label} className={`min-w-0 overflow-hidden rounded-xl p-3 ${STAT_TINTS[k % STAT_TINTS.length]}`}>
-                          <p
-                            className="whitespace-nowrap text-[1.3rem] font-bold leading-none tracking-tight text-ink"
-                            style={{ fontFamily: "var(--font-display)" }}
-                          >
-                            {st.value}
-                          </p>
-                          <p className="mt-1 text-[11px] leading-[1.4] text-ink-soft">{st.label}</p>
-                        </div>
-                      ))}
                     </div>
 
                     <span className="mt-auto inline-flex items-center gap-2 text-[14px] font-semibold text-ink">

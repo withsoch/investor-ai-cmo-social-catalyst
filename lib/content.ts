@@ -620,13 +620,6 @@ export type WorkCaseStudy = {
   platform: string;
   scope: string[];
   title: string;
-  /**
-   * The three boxes on the /case-studies card. These are facts about the work
-   * itself (counts, formats, runtimes) taken from the case-study material, not
-   * outcomes - never put an unverified result here. Keep each value to about
-   * four characters, or it clips inside the box on phones.
-   */
-  stats: { value: string; label: string }[];
   /** Sample of the actual work, rooted at public/. */
   image: string;
   imageAlt: string;
@@ -650,11 +643,6 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "Instagram",
     scope: ["Social Media Management", "Design"],
     title: "Building an Instagram presence from zero followers",
-    stats: [
-      { value: "0", label: "Followers at the start" },
-      { value: "4", label: "Content pillars" },
-      { value: "5", label: "Fixed parts in every post" },
-    ],
     image: "/images/case-studies/soch-social-media/why-automations-fail.jpg",
     imageAlt: "Soch Instagram post: Why 80% of automations fail",
     imageRatio: "3/4",
@@ -666,11 +654,6 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "Landing page + VSL",
     scope: ["Landing Page", "VSL", "Copy & Design"],
     title: "One page with one job: book the call",
-    stats: [
-      { value: "1", label: "Conversion goal" },
-      { value: "<3", label: "Minutes of VSL" },
-      { value: "4", label: "Case studies on the page" },
-    ],
     image: "/images/case-studies/soch-landing-page/landing-hero.jpg",
     imageAlt: "Soch audit landing page: Done-For-You AI Automation for Businesses",
     imageRatio: "16/9",
@@ -682,11 +665,6 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "Instagram Reels",
     scope: ["Ideation", "Scripting", "Video Editing"],
     title: "Turning one creator into a publishing engine",
-    stats: [
-      { value: "4", label: "Formats in rotation" },
-      { value: "1", label: "Step for the creator: filming" },
-      { value: "0.3s", label: "Max dead air in any cut" },
-    ],
     image: "/images/case-studies/etz-riz/unrejectable-resume.jpg",
     imageAlt: "etz.riz Reel: How to make your resume unrejectable",
     imageRatio: "3/4",
@@ -699,11 +677,6 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "YouTube",
     scope: ["Thumbnail Design", "Channel Branding"],
     title: "Making hour-long finance interviews impossible to scroll past",
-    stats: [
-      { value: "6", label: "Fixed parts per thumbnail" },
-      { value: "4", label: "Rules every design follows" },
-      { value: "1", label: "Red highlight per design" },
-    ],
     image: "/images/case-studies/shaping-wealth/hal-hershfield.jpg",
     imageAlt: "Shaping Wealth thumbnail: Your Future Self Is A Stranger, with Hal Hershfield",
     imageRatio: "16/9",
@@ -717,11 +690,6 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "AI product visuals",
     scope: ["AI Product Visuals", "Food & Beverage"],
     title: "Two phone photos in, seventeen visuals out",
-    stats: [
-      { value: "2", label: "Phone photos in" },
-      { value: "17", label: "AI visuals out" },
-      { value: "3", label: "Channel packages" },
-    ],
     image: "/images/case-studies/bruto-bakehouse/studio-01.jpg",
     imageAlt: "AI render of a chocolate chip cookie on white marble",
     imageRatio: "4/5",
@@ -734,11 +702,6 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "AI product visuals",
     scope: ["AI Product Visuals", "Food & Beverage"],
     title: "A full brunch campaign, without a single set-up",
-    stats: [
-      { value: "17", label: "AI visuals" },
-      { value: "3", label: "Channel packages" },
-      { value: "0", label: "Physical set-ups" },
-    ],
     image: "/images/case-studies/restoran-loulou/studio-01.jpg",
     imageAlt: "AI render of a croissant with a latte and iced coffee on a window table",
     imageRatio: "4/5",
