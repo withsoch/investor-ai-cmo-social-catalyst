@@ -75,7 +75,13 @@ const RESULT_CARDS: GridCard[] = CARDS.map((c) => ({
   cta: "Read success story",
 }));
 
-const WORK_CARDS: GridCard[] = WORK_CASE_STUDIES.map((w) => ({
+/** Work pieces that sit at the end of the grid rather than near the top. */
+const WORK_LAST = ["soch-social-media", "soch-landing-page"];
+
+const WORK_CARDS: GridCard[] = [
+  ...WORK_CASE_STUDIES.filter((w) => !WORK_LAST.includes(w.slug)),
+  ...WORK_CASE_STUDIES.filter((w) => WORK_LAST.includes(w.slug)),
+].map((w) => ({
   href: `/case-studies/${w.slug}`,
   image: w.image,
   alt: w.imageAlt,
