@@ -612,6 +612,86 @@ export function headlineMetric(cs: CaseStudy) {
   return cs.metrics[cs.highlight ?? 0] ?? cs.metrics[0];
 }
 
+export type WorkCaseStudy = {
+  slug: string;
+  client: string;
+  /** What the account or asset is, e.g. "AI automation agency". */
+  sector: string;
+  platform: string;
+  scope: string[];
+  title: string;
+  summary: string;
+  /** Sample of the actual work, rooted at public/. */
+  image: string;
+  imageAlt: string;
+  /** CSS aspect-ratio of `image`, so cards crop it sensibly. */
+  imageRatio: string;
+  /** object-position class for the wide card crop; defaults to "object-top". */
+  imageFocus?: string;
+};
+
+// Content, design and video engagements. Unlike CASE_STUDIES these carry no
+// result metrics or client quotes (none were supplied), so they stay out of
+// the homepage results cards, proof ticker and avatar stack. Each slug has its
+// own page under app/case-studies/<slug>/page.tsx built on
+// components/WorkCaseStudy.tsx; this summary feeds the /case-studies "work"
+// grid and the MoreWork strip at the foot of those pages.
+export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
+  {
+    slug: "soch-social-media",
+    client: "Soch",
+    sector: "AI automation agency",
+    platform: "Instagram",
+    scope: ["Social Media Management", "Design"],
+    title: "Building an Instagram presence from zero followers",
+    summary:
+      "Positioning, a locked visual system, content production and day-to-day publishing for an AI automation agency, built from scratch.",
+    image: "/images/case-studies/soch-social-media/why-automations-fail.jpg",
+    imageAlt: "Soch Instagram post: Why 80% of automations fail",
+    imageRatio: "3/4",
+  },
+  {
+    slug: "soch-landing-page",
+    client: "Soch",
+    sector: "B2B automation agency",
+    platform: "Landing page + VSL",
+    scope: ["Landing Page", "VSL", "Copy & Design"],
+    title: "One page with one job: book the call",
+    summary:
+      "Copy, design, a sub-three-minute VSL and case-study cards for a cold-traffic landing page with a single conversion goal.",
+    image: "/images/case-studies/soch-landing-page/landing-hero.jpg",
+    imageAlt: "Soch audit landing page: Done-For-You AI Automation for Businesses",
+    imageRatio: "16/9",
+  },
+  {
+    slug: "etz-riz",
+    client: "etz.riz",
+    sector: "Creator account",
+    platform: "Instagram Reels",
+    scope: ["Ideation", "Scripting", "Video Editing"],
+    title: "Turning one creator into a publishing engine",
+    summary:
+      "Weekly Reel ideation, scripting and editing for a creator posting about AI and careers. The creator films; everything else is handled.",
+    image: "/images/case-studies/etz-riz/unrejectable-resume.jpg",
+    imageAlt: "etz.riz Reel: How to make your resume unrejectable",
+    imageRatio: "3/4",
+    imageFocus: "object-[50%_62%]",
+  },
+  {
+    slug: "shaping-wealth",
+    client: "Shaping Wealth",
+    sector: "Behavioural finance channel",
+    platform: "YouTube",
+    scope: ["Thumbnail Design", "Channel Branding"],
+    title: "Making hour-long finance interviews impossible to scroll past",
+    summary:
+      "Every thumbnail on a weekly interview channel for financial advisers, designed inside one system that reads at phone size.",
+    image: "/images/case-studies/shaping-wealth/hal-hershfield.jpg",
+    imageAlt: "Shaping Wealth thumbnail: Your Future Self Is A Stranger, with Hal Hershfield",
+    imageRatio: "16/9",
+  },
+];
+
 /**
  * Homepage proof ticker. Client numbers are derived from CASE_STUDIES so the
  * ribbon can never disagree with the case-study pages; the rest are promises

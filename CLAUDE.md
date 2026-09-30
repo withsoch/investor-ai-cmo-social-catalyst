@@ -70,6 +70,20 @@ own local `CARDS` array. Each entry's optional `highlight` index picks its headl
 metric, read through `headlineMetric()`. If you add, remove, or reslug a case
 study, or change a headline number, update both the standalone page and the
 `CASE_STUDIES` entry, or the homepage and the detail page will drift apart.
+**Content, design and video case studies are a second, separate set.** Four
+more pages (`soch-social-media`, `soch-landing-page`, `etz-riz`,
+`shaping-wealth`) show production work rather than results: each keeps its
+copy in local consts and renders it through the shared layout
+`components/WorkCaseStudy.tsx`, ending with `MoreWork` (the other work pieces)
+instead of `MoreCaseStudies`. Their summaries live in `WORK_CASE_STUDIES` in
+`lib/content.ts`, which feeds the "Content, design & video" grid on
+`/case-studies` and `MoreWork`. They have no result metrics or client quotes,
+so they are deliberately kept out of `CASE_STUDIES` and everything it feeds
+(homepage results, ticker, hero chip, avatar stack). Never invent an outcome
+number for them; the `facts` tiles are deliverables ("4 pillars", "Weekly").
+Their images are samples of the work, in
+`public/images/case-studies/<slug>/`. When adding one, add the page, the
+`WORK_CASE_STUDIES` entry and the `app/sitemap.ts` route.
 `components/Testimonials.tsx` (the old carousel) is currently unused. Two
 client photos are local (`public/images/case-studies/`); the other two are
 hotlinked from the Webflow CDN (`cdn.prod.website-files.com`) — check they

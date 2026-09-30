@@ -9,7 +9,7 @@ import { InnerHero } from "@/components/InnerHero";
 import { Icon } from "@/components/Icons";
 import { Emphasis } from "@/components/ui/Emphasis";
 import { SpinBadge } from "@/components/ui/SpinBadge";
-import { CASE_STUDIES, CTAS, headlineMetric } from "@/lib/content";
+import { CASE_STUDIES, CTAS, WORK_CASE_STUDIES, headlineMetric } from "@/lib/content";
 
 /** Tint per stat box, so each card's numbers read as a colourful row. */
 const STAT_TINTS = ["bg-peach", "bg-lilac-soft", "bg-sun-soft"];
@@ -17,7 +17,7 @@ const STAT_TINTS = ["bg-peach", "bg-lilac-soft", "bg-sun-soft"];
 export const metadata: Metadata = {
   title: "Case Studies: Client Results | Social Catalyst",
   description:
-    "Real results from Social Catalyst client engagements across LinkedIn strategy, personal branding, and go-to-market positioning.",
+    "Real results from Social Catalyst client engagements across LinkedIn strategy, personal branding and go-to-market positioning, plus the Instagram, Reels, YouTube and landing-page work we produce.",
 };
 
 const CARDS = [
@@ -88,8 +88,9 @@ export default function CaseStudiesPage() {
         lead={
           <>
             A selection of client engagements across LinkedIn strategy,
-            go-to-market positioning, and personal brand builds. Every number
-            here is verified with the client.
+            go-to-market positioning and personal brand builds, plus the
+            content, design and video work we produce. Every number here is
+            verified with the client.
           </>
         }
         actions={
@@ -198,6 +199,73 @@ export default function CaseStudiesPage() {
                     <span className="inline-flex items-center gap-2 text-[14px] font-semibold text-ink">
                       Read success story
                       <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand text-white transition-transform duration-300 group-hover:translate-x-1">
+                        <Icon name="arrow" className="h-3.5 w-3.5" />
+                      </span>
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Content, design & video work ── */}
+      <section className="border-t border-line bg-cream py-20 sm:py-24 lg:py-28">
+        <div className="container-x">
+          <Reveal className="max-w-2xl">
+            <span className="inline-flex items-center gap-2 rounded-lg bg-white px-3 py-1.5 text-[0.8rem] font-semibold text-ink ring-1 ring-line">
+              <span className="h-2 w-2 rotate-45 rounded-[2px] bg-brand" />
+              Content, design &amp; video
+            </span>
+            <h2 className="text-h2 mt-5">
+              The work, <Emphasis>up close.</Emphasis>
+            </h2>
+            <p className="lead mt-5 text-muted">
+              Instagram feeds, Reels, YouTube thumbnails and landing pages we
+              produce week in, week out, with the system behind each one.
+            </p>
+          </Reveal>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {WORK_CASE_STUDIES.map((w, i) => (
+              <Reveal key={w.slug} delay={(i % 2) * 0.1} className="h-full">
+                <Link
+                  href={`/case-studies/${w.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-line transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
+                >
+                  <div className="overflow-hidden bg-mist">
+                    <Photo
+                      src={w.image}
+                      alt={w.imageAlt}
+                      ratio="16/9"
+                      sizes="(min-width: 1024px) 36rem, (min-width: 640px) 50vw, 100vw"
+                      imgClassName={`${w.imageFocus ?? "object-top"} transition-transform duration-700 group-hover:scale-105`}
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col gap-5 p-6">
+                    <div>
+                      <div className="flex flex-wrap gap-2">
+                        {w.scope.map((tag) => (
+                          <span key={tag} className="rounded-full bg-ink px-2.5 py-1 text-[11px] font-semibold text-white">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="mt-4 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-muted">
+                        {w.client} · {w.platform}
+                      </p>
+                      <h3
+                        className="mt-1.5 text-[1.1rem] font-semibold leading-snug text-ink transition-colors group-hover:text-brand-dark"
+                        style={{ fontFamily: "var(--font-display)" }}
+                      >
+                        {w.title}
+                      </h3>
+                      <p className="mt-2 text-[0.92rem] leading-relaxed text-slate">{w.summary}</p>
+                    </div>
+                    <span className="mt-auto inline-flex items-center gap-2 text-[14px] font-semibold text-ink">
+                      See the work
+                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand text-ink transition-transform duration-300 group-hover:translate-x-1">
                         <Icon name="arrow" className="h-3.5 w-3.5" />
                       </span>
                     </span>
