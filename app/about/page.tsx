@@ -33,8 +33,8 @@ const VALUES: { icon: IconName; title: string; body: string }[] = [
   },
   {
     icon: "chat",
-    title: "Your voice, in two languages",
-    body: "We learn how your business talks and write captions in Estonian and English, so local and international contacts both feel spoken to. We never publish a template with your name swapped in.",
+    title: "Your voice, not a template",
+    body: "We learn how your business talks and write every caption to sound like you, so your customers feel spoken to. We never publish a template with your name swapped in.",
   },
   {
     icon: "target",

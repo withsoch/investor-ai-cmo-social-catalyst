@@ -16,7 +16,7 @@ const PILLARS: { mock: Mock; tint: string; title: string; body: string }[] = [
     mock: "post",
     tint: "bg-lilac-soft",
     title: "You posted an update. Six people liked it.",
-    body: "Out of 340 followers. A feed that goes quiet for a week reads as a business that's gone quiet too. We keep Instagram, LinkedIn and Facebook posting on a real schedule, in Estonian and English, so it doesn't.",
+    body: "Out of 340 followers. A feed that goes quiet for a week reads as a business that's gone quiet too. We keep Instagram, LinkedIn and Facebook posting on a real schedule, so it doesn't.",
   },
   {
     mock: "inbox",
