@@ -5,7 +5,7 @@ import { STEPS } from "@/lib/content";
 
 export function HowWeWork() {
   return (
-    <section id="how-we-work" className="bg-mist py-20 sm:py-24 lg:py-28">
+    <section id="how-we-work" className="bg-white py-20 sm:py-24 lg:py-28">
       <div className="container-x">
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
           <div className="max-w-2xl">

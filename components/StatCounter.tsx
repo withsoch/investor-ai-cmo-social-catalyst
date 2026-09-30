@@ -46,3 +46,20 @@ export function StatCounter({ num, suffix, className, style }: Props) {
     </span>
   );
 }
+
+/**
+ * A display value like "29%", "24h" or "10+": counts up the leading integer
+ * and keeps the rest as the suffix. Anything without a leading number
+ * ("Free") renders as plain text.
+ */
+export function StatValue({ value, className, style }: { value: string; className?: string; style?: React.CSSProperties }) {
+  const m = /^(\d+)(.*)$/.exec(value);
+  if (!m) {
+    return (
+      <span className={className} style={style}>
+        {value}
+      </span>
+    );
+  }
+  return <StatCounter num={Number(m[1])} suffix={m[2]} className={className} style={style} />;
+}

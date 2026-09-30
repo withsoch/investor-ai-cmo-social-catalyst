@@ -117,7 +117,7 @@ export function HowWeWorkChart() {
         transition={{ duration: CLIMB, ease: "easeInOut", times: TIMES }}
       >
         <span className="relative flex h-3.5 w-3.5">
-          {!reduce && <span className="absolute inline-flex h-full w-full rounded-full bg-brand/40 animate-ping" />}
+          <span className="absolute inline-flex h-full w-full rounded-full bg-brand/40 animate-ping motion-reduce:hidden" />
           <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-brand shadow-[0_0_12px_3px] shadow-brand/40 ring-2 ring-white" />
         </span>
       </motion.span>

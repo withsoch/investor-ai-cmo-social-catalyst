@@ -10,6 +10,17 @@ import { SERVICE_CATEGORIES } from "@/lib/content";
 
 const num = (i: number) => String(i + 1).padStart(2, "0");
 
+/** Colour plate behind each category's visual, cycling so neighbours differ. */
+const PLATES = [
+  "bg-peach",
+  "bg-lilac-soft",
+  "bg-sun-soft",
+  "bg-[linear-gradient(135deg,var(--color-peach),var(--color-sun-soft))]",
+  "bg-[linear-gradient(135deg,var(--color-lilac-soft),var(--color-peach))]",
+  "bg-mist",
+  "bg-[linear-gradient(135deg,var(--color-sun-soft),var(--color-lilac-soft))]",
+];
+
 export function ServicesShowcase() {
   const [active, setActive] = useState(SERVICE_CATEGORIES[0].slug);
   const refs = useRef<Record<string, HTMLElement | null>>({});
@@ -73,8 +84,8 @@ export function ServicesShowcase() {
                     key={c.slug}
                     href={`#${c.slug}`}
                     aria-current={isActive ? "true" : undefined}
-                    className={`group -ml-px flex items-baseline gap-3 border-l py-2 pl-4 transition-colors ${
-                      isActive ? "border-brand" : "border-transparent hover:border-line"
+                    className={`group -ml-px flex items-baseline gap-3 rounded-r-lg border-l-2 py-2 pl-4 transition-colors ${
+                      isActive ? "border-brand bg-peach/60" : "border-transparent hover:border-line"
                     }`}
                   >
                     <span
@@ -133,8 +144,8 @@ export function ServicesShowcase() {
                     <div className={flipped ? "lg:order-2" : ""}>
                       <div className="flex items-center gap-3">
                         <span
-                          className="text-[0.8rem] font-semibold text-brand"
-                          style={{ fontVariantNumeric: "tabular-nums" }}
+                          className="inline-flex h-9 min-w-9 items-center justify-center rounded-xl bg-brand px-2 text-[0.85rem] font-semibold text-ink"
+                          style={{ fontFamily: "var(--font-display)", fontVariantNumeric: "tabular-nums" }}
                         >
                           {num(i)}
                         </span>
@@ -176,7 +187,12 @@ export function ServicesShowcase() {
 
                     {/* visual */}
                     <div className={flipped ? "lg:order-1" : ""}>
-                      <CategoryVisual slug={c.slug} />
+                      <div className={`relative overflow-hidden rounded-[2rem] px-3 py-6 sm:px-6 sm:py-8 ${PLATES[i % PLATES.length]}`}>
+                        <div aria-hidden="true" className="bg-dots pointer-events-none absolute inset-0 opacity-70 [mask-image:radial-gradient(70%_70%_at_50%_50%,black,transparent)]" />
+                        <div className="relative">
+                          <CategoryVisual slug={c.slug} />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </article>

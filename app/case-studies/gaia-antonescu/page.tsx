@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/ui/Reveal";
+import { Aurora } from "@/components/ui/Aurora";
+import { MoreCaseStudies } from "@/components/MoreCaseStudies";
+import { CtaBand } from "@/components/CtaBand";
 import { StatCounter } from "@/components/StatCounter";
 
 export const metadata: Metadata = {
@@ -80,13 +83,15 @@ export default function GaiaAntonescuPage() {
     <div className="bg-white">
 
       {/* ── Hero ── */}
-      <section className="bg-white py-16 sm:py-20 lg:py-28">
-        <div className="container-x grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+      {/* pulled up under the sticky header, like every other hero */}
+      <section className="relative -mt-[4.5rem] overflow-hidden bg-cream pb-16 pt-[8.5rem] sm:pb-20 sm:pt-[9.5rem] lg:pb-28 lg:pt-[11.5rem]">
+        <Aurora tone="cream" />
+        <div className="container-x relative grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
 
           {/* left column */}
           <div>
             <span
-              className="animate-fade-up inline-flex items-center rounded bg-peach px-3 py-1 text-xs font-bold text-brand-dark"
+              className="animate-fade-up inline-flex items-center rounded-full bg-ink px-3.5 py-1.5 text-xs font-bold text-white"
               style={{ animationDelay: "0ms" }}
             >
               LinkedIn Management
@@ -124,7 +129,7 @@ export default function GaiaAntonescuPage() {
                     className="shrink-0 leading-none text-ink"
                     style={{
                       fontFamily: "var(--font-display)",
-                      fontSize: "clamp(2.2rem,1.6rem+1.6vw,2.8rem)",
+                      fontSize: "clamp(2.2rem, 1.6rem + 1.6vw, 2.8rem)",
                       fontWeight: 600,
                       letterSpacing: "-0.022em",
                     }}
@@ -140,12 +145,16 @@ export default function GaiaAntonescuPage() {
             className="animate-fade-up"
             style={{ animationDelay: "100ms" }}
           >
-            <div className="aspect-[3/4] w-full overflow-hidden rounded border border-line">
+            <div className="relative mx-auto max-w-[27rem] px-2 pb-4 pt-2 sm:px-5 lg:mr-0">
+            <div aria-hidden="true" className="absolute inset-x-5 bottom-0 top-8 rotate-[4deg] rounded-[2.5rem] bg-[linear-gradient(135deg,var(--color-brand)_0%,var(--color-brand-light)_45%,var(--color-sun)_100%)] sm:inset-x-8" />
+            <span aria-hidden="true" className="absolute -bottom-2 right-0 h-20 w-20 rounded-full bg-lilac/70" />
+            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-[var(--shadow-lift)] ring-4 ring-white">
               <img
                 src="https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/6a2fb631aa9fc98e79ae2810_1714512298914.jpg"
                 alt="Gaia Ferrero"
                 style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
               />
+            </div>
             </div>
           </div>
 
@@ -381,7 +390,7 @@ export default function GaiaAntonescuPage() {
                         className="block leading-none text-ink"
                         style={{
                           fontFamily: "var(--font-display)",
-                          fontSize: "clamp(2.6rem,2rem+1.5vw,3.4rem)",
+                          fontSize: "clamp(2.6rem, 2rem + 1.5vw, 3.4rem)",
                           fontWeight: 600,
                           letterSpacing: "-0.022em",
                         }}
@@ -402,6 +411,12 @@ export default function GaiaAntonescuPage() {
         </div>
       </section>
 
+      <MoreCaseStudies current="gaia-antonescu" />
+
+      <CtaBand
+        title="Your results could be the next case study"
+        subtitle="Get a quote. We'll be straight with you about what is achievable for your business and how long it will take."
+      />
     </div>
   );
 }

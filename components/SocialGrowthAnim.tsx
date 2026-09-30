@@ -6,7 +6,7 @@ import { PlatformMark } from "@/components/PlatformIcons";
 import { type Channel } from "@/lib/channels";
 
 // ------------------------------------------------------------------
-//  Hero visual: a "business control deck" mock. Deliberately not a clone of
+//  Homepage channels visual: a "business control deck" mock. Deliberately not a clone of
 //  any one platform's UI - it shows the thing we actually sell, which is
 //  every channel planned, published and measured in one place.
 //
@@ -61,7 +61,12 @@ function CountUpMetric({ target, label, delay }: { target: number; label: string
   const reduce = useReducedMotion();
 
   useEffect(() => {
-    if (reduce) return;
+    // Reduced motion: jump straight to the number, but after hydration so the
+    // server and client first render agree (both start at 0).
+    if (reduce) {
+      const id = requestAnimationFrame(() => setValue(target));
+      return () => cancelAnimationFrame(id);
+    }
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -83,15 +88,13 @@ function CountUpMetric({ target, label, delay }: { target: number; label: string
     return () => observer.disconnect();
   }, [target, delay, reduce]);
 
-  const display = reduce ? target : value;
-
   return (
     <div ref={ref}>
       <p
         className="text-[1.2rem] font-semibold leading-none text-ink tabular-nums"
         style={{ fontFamily: "var(--font-display)" }}
       >
-        {formatNumber(display)}
+        {formatNumber(value)}
       </p>
       <p className="mt-1 text-[0.68rem] leading-tight text-muted">{label}</p>
     </div>
@@ -99,8 +102,13 @@ function CountUpMetric({ target, label, delay }: { target: number; label: string
 }
 
 /** One notification at a time, cycling. Keeps the frame alive without
- *  stacking four chips on top of the card the way the old version did. */
-function NotificationToast() {
+ *  stacking four chips on top of the card the way the old version did.
+ *  Exported so the hero collage can float the same toast over its photo. */
+export function NotificationToast({
+  className = "pointer-events-none absolute right-0 top-0 z-20 h-14 w-[15.5rem] max-w-full",
+}: {
+  className?: string;
+}) {
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
 
@@ -113,7 +121,7 @@ function NotificationToast() {
   const n = NOTIFS[i];
 
   return (
-    <div className="pointer-events-none absolute right-0 top-0 z-20 h-14 w-[15.5rem] max-w-full">
+    <div className={className}>
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={n.title}
@@ -136,18 +144,19 @@ function NotificationToast() {
   );
 }
 
-export function SocialGrowthAnim() {
+/** `toast={false}` drops the cycling notification, for when the hero already shows it. */
+export function SocialGrowthAnim({ toast = true }: { toast?: boolean }) {
   const reduce = useReducedMotion();
 
   return (
-    <div className="relative mx-auto w-full max-w-[27rem] pb-10 pt-[3.6rem]">
-      {/* depth: a soft tilted plate behind the card, no glow blobs */}
+    <div className={`relative mx-auto w-full max-w-[27rem] pb-10 ${toast ? "pt-[3.6rem]" : "pt-4"}`}>
+      {/* depth: a translucent tilted plate behind the card, tuned for the orange channels band */}
       <div
         aria-hidden="true"
-        className="absolute -inset-x-2 bottom-[3.25rem] top-[4.15rem] -rotate-[2deg] rounded-[1.6rem] border border-line bg-white/70"
+        className={`absolute -inset-x-2 bottom-[3.25rem] -rotate-[3deg] rounded-[1.6rem] border border-white/50 bg-white/30 ${toast ? "top-[4.15rem]" : "top-[1.4rem]"}`}
       />
 
-      <NotificationToast />
+      {toast && <NotificationToast />}
 
       {/* ---- the card ---- */}
       <motion.div

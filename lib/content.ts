@@ -8,8 +8,21 @@ import type { IconName } from "@/components/Icons";
 
 export const HERO = {
   eyebrow: "Social media marketing for B2B and growing businesses",
+  /** headline + headlineEmphasis is the stable h1 sentence screen readers get. */
   headline: "Get more of the right people ",
   headlineEmphasis: "finding you first.",
+  /** Visual h1: the prefix stays put, the last word cycles. */
+  rotatingPrefix: "finding you",
+  rotating: ["first.", "on Google.", "on LinkedIn.", "on Instagram."],
+  lead: "We manage your digital presence, so the people looking for what you do find you first. You set the vision. We handle the rest.",
+  /** Shown under the audit button. All three are promises the audit already makes. */
+  microcopy: ["Free", "Read by a person", "Back within 24 hours"],
+  proofLine: "Real results for founders in the UK, US, Europe & Pakistan",
+  /** Stock photo - atmosphere only, never captioned as a client. */
+  photo: {
+    src: "/Service Images/ai-content-feature-team.webp",
+    alt: "A small team gathered round a laptop, smiling at what's on screen",
+  },
 };
 
 export const SITE = {
@@ -68,11 +81,16 @@ export type ServiceCategory = {
   highlights: string[];
   /** Full list, with descriptions, shown on the /services page. */
   services: Service[];
+  /** Photo for the homepage bento card, rooted at public/. Omit for a colour tile. */
+  image?: string;
+  imageAlt?: string;
 };
 
 export const SERVICE_CATEGORIES: ServiceCategory[] = [
   {
     slug: "social-media",
+    image: "/Service Images/social-media-phone.webp",
+    imageAlt: "Checking a business's social feed on a phone",
     icon: "social",
     name: "Social Media",
     blurb: "Your feed stays busy every week without you touching it.",
@@ -125,6 +143,8 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
   {
     slug: "google",
+    image: "/Service Images/google-maps-phone.webp",
+    imageAlt: "A Google Maps business listing open on a phone",
     icon: "pin",
     name: "Google",
     blurb: "Show up when someone nearby searches for what you do.",
@@ -157,6 +177,8 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
   {
     slug: "reviews",
+    image: "/Service Images/reviews-customer-rating.webp",
+    imageAlt: "A phone with a five-star customer review above it",
     icon: "star",
     name: "Reviews",
     blurb: "Get the reviews you are owed, without anyone feeling awkward.",
@@ -171,6 +193,8 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
   {
     slug: "ai-content",
+    image: "/Service Images/ai-content-team-meeting.webp",
+    imageAlt: "A team talking through ideas in their office",
     icon: "image",
     name: "AI Content",
     blurb: "Photos and video of your business, without booking a shoot day.",
@@ -195,6 +219,8 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
   {
     slug: "foundations",
+    image: "/Service Images/foundations-website-laptop.webp",
+    imageAlt: "A one-page website open on a laptop",
     icon: "globe",
     name: "Foundations",
     blurb: "The profile, brand and website you never got round to.",
@@ -224,6 +250,8 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
   {
     slug: "linkedin-leadgen",
+    image: "/Service Images/linkedin-laptop.webp",
+    imageAlt: "Typing an outreach message on a laptop",
     icon: "target",
     name: "LinkedIn & Lead Gen",
     blurb: "LinkedIn outreach that actually starts conversations.",
@@ -473,6 +501,8 @@ export type CaseStudy = {
   authorRole: string;
   accent: string;
   initials: string;
+  /** Index into `metrics` of the headline number used on the homepage. Defaults to 0. */
+  highlight?: number;
   /**
    * Client photo rooted at public/, e.g. "/images/clients/northline-team.jpg".
    * Falls back to the accent panel with the initials glyph.
@@ -508,6 +538,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     authorRole: "Founder, Byzantine",
     accent: "#1f7a8c",
     initials: "GF",
+    highlight: 1,
     image:
       "https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/6a2fb631aa9fc98e79ae2810_1714512298914.jpg",
   },
@@ -574,6 +605,27 @@ export const CASE_STUDIES: CaseStudy[] = [
     image:
       "/images/case-studies/kaitlin-malaspina.jpg",
   },
+];
+
+/** The headline metric of a case study, per its `highlight` index. */
+export function headlineMetric(cs: CaseStudy) {
+  return cs.metrics[cs.highlight ?? 0] ?? cs.metrics[0];
+}
+
+/**
+ * Homepage proof ticker. Client numbers are derived from CASE_STUDIES so the
+ * ribbon can never disagree with the case-study pages; the rest are promises
+ * every package already makes.
+ */
+export const PROOF_TICKER: string[] = [
+  ...CASE_STUDIES.map((cs) => {
+    const m = headlineMetric(cs);
+    return `${m.value} ${m.label.toLowerCase()}`;
+  }),
+  "Every Google review answered within 24h",
+  "You approve 100% of posts",
+  "Captions in Estonian + English",
+  "5 channels, one plan",
 ];
 
 // NOTE: Placeholder client roster, invented names, rendered as text wordmarks
@@ -667,6 +719,13 @@ export const AUDIT_FAQS: FaqItem[] = [
     a: "Instagram, Google Business Profile, Facebook, and LinkedIn if you have one. Send the ones you actually use.",
   },
 ];
+
+/** Homepage closing call to action. */
+export const HOME_CTA = {
+  title: "See what's costing you customers, free.",
+  subtitle:
+    "Send us your Instagram and Google links. We'll read them by hand and send back a written plan within 24 hours. Takes under a minute, no call needed.",
+};
 
 /** Post-submit sequence shown on /confirmation. */
 export const CONFIRMATION_STEPS: { title: string; body: string }[] = [

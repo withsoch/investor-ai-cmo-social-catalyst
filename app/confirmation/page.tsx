@@ -5,6 +5,7 @@ import { Faq } from "@/components/Faq";
 import { Icon } from "@/components/Icons";
 import { Reveal } from "@/components/ui/Reveal";
 import { Avatar } from "@/components/ui/Avatar";
+import { Aurora } from "@/components/ui/Aurora";
 import { CONFIRMATION_FAQS, CONFIRMATION_STEPS, NAV, SITE } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -24,19 +25,21 @@ export default function ConfirmationPage() {
   return (
     <>
       {/* ── CONFIRMATION BANNER ───────────────────────────────────── */}
-      <section className="bg-forest">
-        <div className="container-x py-14 sm:py-16">
+      <section className="relative overflow-hidden bg-forest">
+        <Aurora tone="dark" />
+        <div className="container-x relative py-16 sm:py-20">
           <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
             <div className="max-w-2xl">
               <span className="inline-flex items-center gap-2.5 rounded-full bg-white/10 py-1.5 pl-1.5 pr-4 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-white/80">
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-leaf text-white">
-                  <Icon name="check" className="h-3.5 w-3.5" strokeWidth={3} />
+                <span className="relative inline-flex h-6 w-6 items-center justify-center rounded-full bg-leaf text-white">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-leaf/60 motion-reduce:hidden" />
+                  <Icon name="check" className="relative h-3.5 w-3.5" strokeWidth={3} />
                 </span>
                 Marketing audit received
               </span>
 
-              <h1 className="text-display mt-6 text-[clamp(2.1rem,1.4rem+2.6vw,3.2rem)] text-white">
-                Your profiles are with us.
+              <h1 className="text-display mt-6 text-[clamp(2.1rem,1.4rem+2.6vw,3.2rem)] !text-white">
+                Your profiles are <span className="italic text-sun">with us.</span>
               </h1>
               <p className="lead mt-4 text-white/70">
                 Nothing else is needed from you. The written breakdown lands
@@ -45,14 +48,14 @@ export default function ConfirmationPage() {
               </p>
             </div>
 
-            <div className="w-full shrink-0 rounded-2xl border border-white/15 bg-white/[0.04] p-6 sm:p-7 lg:w-[300px]">
+            <div className="w-full shrink-0 rounded-3xl border border-white/15 bg-white/[0.07] p-6 backdrop-blur sm:p-7 lg:w-[320px]">
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-white/50">
                 Don&apos;t want to wait?
               </p>
               <p className="mt-2 text-[0.95rem] leading-snug text-white/70">
                 Skip the inbox and talk it through with us now.
               </p>
-              <BookButton variant="primary" size="lg" arrow className="mt-5 w-full justify-center">
+              <BookButton variant="primary" size="lg" arrow className="btn-shine mt-5 w-full justify-center">
                 Get a quote now
               </BookButton>
             </div>
@@ -86,7 +89,7 @@ export default function ConfirmationPage() {
                     />
                   )}
                   <span
-                    className="relative z-10 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-mist text-[1rem] text-ink ring-1 ring-line"
+                    className="relative z-10 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand text-[1rem] text-ink shadow-[var(--shadow-card)]"
                     style={{
                       fontFamily: "var(--font-display)",
                       fontWeight: 600,
@@ -106,7 +109,7 @@ export default function ConfirmationPage() {
             </ol>
 
             <Reveal delay={0.1}>
-              <figure className="mt-4 rounded-2xl border border-dashed border-line bg-cream p-6 sm:p-7">
+              <figure className="mt-4 rounded-3xl bg-lilac-soft p-6 sm:p-7">
                 <p
                   className="text-[1.15rem] leading-snug text-ink"
                   style={{ fontFamily: "var(--font-display)", fontWeight: 500 }}
@@ -114,7 +117,7 @@ export default function ConfirmationPage() {
                   Every submission is read by a person. Not a template, not
                   a tool.
                 </p>
-                <figcaption className="mt-4 flex items-center gap-3 border-t border-dashed border-line pt-4">
+                <figcaption className="mt-4 flex items-center gap-3 border-t border-dashed border-ink/15 pt-4">
                   <Avatar
                     src="/images/team/rizwan-founder.webp"
                     name="Rizwan, Social Catalyst founder"
@@ -140,7 +143,7 @@ export default function ConfirmationPage() {
 
           {/* sidebar */}
           <Reveal delay={0.1} className="lg:sticky lg:top-28 lg:self-start">
-            <div className="rounded-2xl border border-line bg-white p-7 shadow-[var(--shadow-card)]">
+            <div className="rounded-3xl bg-white p-7 shadow-[var(--shadow-lift)] ring-1 ring-line">
               <h2 className="text-h3">Move faster: get a quote</h2>
               <p className="mt-2.5 text-[0.925rem] leading-relaxed text-slate">
                 Same call is in your email too, but the calendar is open now.
@@ -169,7 +172,7 @@ export default function ConfirmationPage() {
               </div>
             </div>
 
-            <div className="mt-6 rounded-2xl border border-line bg-mist p-7">
+            <div className="mt-6 rounded-3xl bg-sun-soft p-7">
               <p className="text-sm font-semibold text-ink">While you wait</p>
               <ul className="mt-3.5 flex flex-col gap-2.5">
                 {NAV.map((n) => (
@@ -193,7 +196,7 @@ export default function ConfirmationPage() {
       </section>
 
       {/* ── FAQ ───────────────────────────────────────────────────── */}
-      <section className="border-t border-line bg-mist py-16 sm:py-20">
+      <section className="bg-cream py-16 sm:py-20">
         <div className="container-x grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <Reveal>
             <h2 className="text-h2">Common questions.</h2>

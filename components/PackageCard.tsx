@@ -3,43 +3,45 @@ import { Icon } from "@/components/Icons";
 import type { Package } from "@/lib/content";
 
 /**
- * A single package card. Growth (popular:true) gets a brand ring and a
- * pill; specialist packages (Delivery-Led, Full) are rendered wider by the
- * caller, not here.
+ * A single package card. Growth (popular) is the forest card with a brand
+ * ring and a "Most popular" badge; `dark` (Full) is an ink card. Specialist
+ * packages are laid out wider by the caller, not here.
  */
 export function PackageCard({ pkg, dark = false }: { pkg: Package; dark?: boolean }) {
-  const tone = dark
+  const onDark = dark || pkg.popular;
+  const tone = onDark
     ? {
-        wrap: "bg-forest text-white",
-        name: "text-white",
-        audience: "text-white/65",
+        name: "!text-white",
+        audience: "text-white/70",
         rule: "border-white/15",
         price: "text-white",
         priceSub: "text-white/60",
-        outcome: "text-white/85",
-        feature: "text-white/80",
-        check: "text-brand-light",
+        outcome: "text-white",
+        feature: "text-white/85",
+        check: "text-sun",
       }
     : {
-        wrap: "bg-white text-ink",
-        name: "text-ink",
+        name: "",
         audience: "text-muted",
         rule: "border-line border-dashed",
         price: "text-ink",
         priceSub: "text-muted",
-        outcome: "text-ink-soft",
+        outcome: "text-ink",
         feature: "text-slate",
         check: "text-brand",
       };
 
+  const wrap = pkg.popular
+    ? "bg-forest text-white ring-2 ring-brand shadow-[0_34px_70px_-34px_var(--color-brand)]"
+    : dark
+      ? "bg-ink text-white ring-1 ring-white/10 shadow-[var(--shadow-lift)]"
+      : "bg-white text-ink ring-1 ring-line hover:shadow-[var(--shadow-lift)]";
+
   return (
-    <div
-      className={`relative flex h-full flex-col rounded-2xl border p-7 ${tone.wrap} ${
-        pkg.popular ? "border-brand shadow-[var(--shadow-lift)]" : "border-line"
-      }`}
-    >
+    <div className={`relative flex h-full flex-col rounded-3xl p-7 transition-transform duration-300 hover:-translate-y-1.5 ${wrap}`}>
       {pkg.popular && (
-        <span className="absolute -top-3 left-7 rounded-full bg-brand px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.06em] text-white">
+        <span className="absolute -top-3 left-7 inline-flex items-center gap-1.5 rounded-full bg-sun px-3 py-1 text-[0.7rem] font-bold uppercase tracking-[0.06em] text-ink shadow-[var(--shadow-card)]">
+          <Icon name="star" className="h-3 w-3" strokeWidth={2.4} />
           Most popular
         </span>
       )}
@@ -75,7 +77,12 @@ export function PackageCard({ pkg, dark = false }: { pkg: Package; dark?: boolea
       </ul>
 
       <div className={`mt-6 border-t pt-5 ${tone.rule}`}>
-        <BookButton variant={dark ? "light" : "primary"} size="md" className="w-full justify-center">
+        <BookButton
+          variant={pkg.popular ? "primary" : dark ? "light" : "secondary"}
+          size="md"
+          arrow
+          className={`w-full justify-center ${pkg.popular ? "btn-shine" : ""}`}
+        >
           Get a quote
         </BookButton>
       </div>
