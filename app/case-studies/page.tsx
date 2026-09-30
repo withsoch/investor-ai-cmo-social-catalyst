@@ -75,6 +75,57 @@ const CARDS = [
   },
 ];
 
+/** One card shape for both kinds: results carry stats, work carries a summary. */
+type GridCard = {
+  href: string;
+  image: string;
+  alt: string;
+  /** object-position class for the 16:10 crop. */
+  focus: string;
+  tags: string[];
+  byline: string;
+  title: string;
+  stats?: { value: string; label: string }[];
+  summary?: string;
+  cta: string;
+};
+
+const RESULT_CARDS: GridCard[] = CARDS.map((c) => ({
+  href: c.href,
+  image: c.image,
+  alt: c.initials,
+  focus: "object-[50%_20%]",
+  tags: c.tags,
+  byline: c.initials.replace(" - ", " · "),
+  title: c.title,
+  stats: c.stats,
+  cta: "Read success story",
+}));
+
+const WORK_CARDS: GridCard[] = WORK_CASE_STUDIES.map((w) => ({
+  href: `/case-studies/${w.slug}`,
+  image: w.image,
+  alt: w.imageAlt,
+  focus: w.imageFocus ?? "object-top",
+  tags: w.scope,
+  byline: `${w.client} · ${w.platform}`,
+  title: w.title,
+  summary: w.summary,
+  cta: "See the work",
+}));
+
+/**
+ * Results and work mixed in a checkerboard: each pair of cards is one of
+ * each, and every other pair is flipped, so on the two-column grid neither
+ * column is all one kind. Whatever is left of the longer list follows.
+ */
+const ALL_CARDS: GridCard[] = [];
+for (let row = 0; row < Math.max(RESULT_CARDS.length, WORK_CARDS.length); row++) {
+  const pair = [RESULT_CARDS[row], WORK_CARDS[row]];
+  if (row % 2) pair.reverse();
+  ALL_CARDS.push(...pair.filter((c): c is GridCard => Boolean(c)));
+}
+
 export default function CaseStudiesPage() {
   return (
     <>
@@ -143,29 +194,26 @@ export default function CaseStudiesPage() {
         }
       />
 
-      {/* ── Cards grid ── */}
+      {/* ── All case studies, results and work mixed ── */}
       <section className="bg-white py-20 sm:py-24 lg:py-28">
         <div className="container-x">
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {CARDS.map((card, i) => (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {ALL_CARDS.map((card, i) => (
               <Reveal key={card.href} delay={(i % 2) * 0.1} className="h-full">
                 <Link
                   href={card.href}
-                  className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-line transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] sm:flex-row"
+                  className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-line transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
                 >
-                  {/* portrait */}
-                  <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-mist sm:aspect-auto sm:w-[40%]">
+                  <div className="overflow-hidden bg-mist">
                     <Photo
                       src={card.image}
-                      alt={card.initials}
-                      sizes="(min-width: 1024px) 20rem, (min-width: 640px) 40vw, 100vw"
-                      className="h-full w-full sm:absolute sm:inset-0"
-                      imgClassName="object-[50%_20%] transition-transform duration-700 group-hover:scale-105"
+                      alt={card.alt}
+                      ratio="16/10"
+                      sizes="(min-width: 1024px) 36rem, (min-width: 640px) 50vw, 100vw"
+                      imgClassName={`${card.focus} transition-transform duration-700 group-hover:scale-105`}
                     />
                   </div>
-
-                  {/* content */}
-                  <div className="flex min-w-0 flex-1 flex-col justify-between gap-6 p-6">
+                  <div className="flex flex-1 flex-col gap-5 p-6">
                     <div>
                       <div className="flex flex-wrap gap-2">
                         {card.tags.map((tag) => (
@@ -174,97 +222,36 @@ export default function CaseStudiesPage() {
                           </span>
                         ))}
                       </div>
+                      <p className="mt-4 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-muted">
+                        {card.byline}
+                      </p>
                       <h2
-                        className="mt-4 text-[1.1rem] font-semibold leading-snug text-ink transition-colors group-hover:text-brand-dark"
+                        className="mt-1.5 text-[1.1rem] font-semibold leading-snug text-ink transition-colors group-hover:text-brand-dark"
                         style={{ fontFamily: "var(--font-display)" }}
                       >
                         {card.title}
                       </h2>
+                      {card.summary && <p className="mt-2 text-[0.92rem] leading-relaxed text-slate">{card.summary}</p>}
                     </div>
 
-                    <div className="grid w-full grid-cols-3 gap-2">
-                      {card.stats.map((st, k) => (
-                        <div key={st.label} className={`min-w-0 overflow-hidden rounded-xl p-3 ${STAT_TINTS[k % STAT_TINTS.length]}`}>
-                          <p
-                            className="whitespace-nowrap text-[1.3rem] font-bold leading-none tracking-tight text-ink"
-                            style={{ fontFamily: "var(--font-display)" }}
-                          >
-                            {st.value}
-                          </p>
-                          <p className="mt-1 text-[11px] leading-[1.4] text-ink-soft">{st.label}</p>
-                        </div>
-                      ))}
-                    </div>
-
-                    <span className="inline-flex items-center gap-2 text-[14px] font-semibold text-ink">
-                      Read success story
-                      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand text-white transition-transform duration-300 group-hover:translate-x-1">
-                        <Icon name="arrow" className="h-3.5 w-3.5" />
-                      </span>
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Content, design & video work ── */}
-      <section className="border-t border-line bg-cream py-20 sm:py-24 lg:py-28">
-        <div className="container-x">
-          <Reveal className="max-w-2xl">
-            <span className="inline-flex items-center gap-2 rounded-lg bg-white px-3 py-1.5 text-[0.8rem] font-semibold text-ink ring-1 ring-line">
-              <span className="h-2 w-2 rotate-45 rounded-[2px] bg-brand" />
-              Content, design &amp; video
-            </span>
-            <h2 className="text-h2 mt-5">
-              The work, <Emphasis>up close.</Emphasis>
-            </h2>
-            <p className="lead mt-5 text-muted">
-              Instagram feeds, Reels, YouTube thumbnails, landing pages and AI
-              product visuals, with the system behind each one.
-            </p>
-          </Reveal>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {WORK_CASE_STUDIES.map((w, i) => (
-              <Reveal key={w.slug} delay={(i % 2) * 0.1} className="h-full">
-                <Link
-                  href={`/case-studies/${w.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-line transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
-                >
-                  <div className="overflow-hidden bg-mist">
-                    <Photo
-                      src={w.image}
-                      alt={w.imageAlt}
-                      ratio="16/9"
-                      sizes="(min-width: 1024px) 36rem, (min-width: 640px) 50vw, 100vw"
-                      imgClassName={`${w.imageFocus ?? "object-top"} transition-transform duration-700 group-hover:scale-105`}
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col gap-5 p-6">
-                    <div>
-                      <div className="flex flex-wrap gap-2">
-                        {w.scope.map((tag) => (
-                          <span key={tag} className="rounded-full bg-ink px-2.5 py-1 text-[11px] font-semibold text-white">
-                            {tag}
-                          </span>
+                    {card.stats && (
+                      <div className="grid w-full grid-cols-3 gap-2">
+                        {card.stats.map((st, k) => (
+                          <div key={st.label} className={`min-w-0 overflow-hidden rounded-xl p-3 ${STAT_TINTS[k % STAT_TINTS.length]}`}>
+                            <p
+                              className="whitespace-nowrap text-[1.3rem] font-bold leading-none tracking-tight text-ink"
+                              style={{ fontFamily: "var(--font-display)" }}
+                            >
+                              {st.value}
+                            </p>
+                            <p className="mt-1 text-[11px] leading-[1.4] text-ink-soft">{st.label}</p>
+                          </div>
                         ))}
                       </div>
-                      <p className="mt-4 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-muted">
-                        {w.client} · {w.platform}
-                      </p>
-                      <h3
-                        className="mt-1.5 text-[1.1rem] font-semibold leading-snug text-ink transition-colors group-hover:text-brand-dark"
-                        style={{ fontFamily: "var(--font-display)" }}
-                      >
-                        {w.title}
-                      </h3>
-                      <p className="mt-2 text-[0.92rem] leading-relaxed text-slate">{w.summary}</p>
-                    </div>
+                    )}
+
                     <span className="mt-auto inline-flex items-center gap-2 text-[14px] font-semibold text-ink">
-                      See the work
+                      {card.cta}
                       <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-brand text-ink transition-transform duration-300 group-hover:translate-x-1">
                         <Icon name="arrow" className="h-3.5 w-3.5" />
                       </span>
