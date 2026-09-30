@@ -612,6 +612,103 @@ export function headlineMetric(cs: CaseStudy) {
   return cs.metrics[cs.highlight ?? 0] ?? cs.metrics[0];
 }
 
+export type WorkCaseStudy = {
+  slug: string;
+  client: string;
+  /** What the account or asset is, e.g. "AI automation agency". */
+  sector: string;
+  platform: string;
+  scope: string[];
+  title: string;
+  /** Sample of the actual work, rooted at public/. */
+  image: string;
+  imageAlt: string;
+  /** CSS aspect-ratio of `image`, so cards crop it sensibly. */
+  imageRatio: string;
+  /** object-position class for the wide card crop; defaults to "object-top". */
+  imageFocus?: string;
+};
+
+// Content, design and video engagements. Unlike CASE_STUDIES these carry no
+// result metrics or client quotes (none were supplied), so they stay out of
+// the homepage results cards, proof ticker and avatar stack. Each slug has its
+// own page under app/case-studies/<slug>/page.tsx built on
+// components/WorkCaseStudy.tsx; this summary feeds their cards in the mixed
+// /case-studies grid and the MoreWork strip at the foot of those pages.
+export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
+  {
+    slug: "soch-social-media",
+    client: "Soch",
+    sector: "AI automation agency",
+    platform: "Instagram",
+    scope: ["Social Media Management", "Design"],
+    title: "Building an Instagram presence from zero followers",
+    image: "/images/case-studies/soch-social-media/why-automations-fail.jpg",
+    imageAlt: "Soch Instagram post: Why 80% of automations fail",
+    imageRatio: "3/4",
+  },
+  {
+    slug: "soch-landing-page",
+    client: "Soch",
+    sector: "B2B automation agency",
+    platform: "Landing page + VSL",
+    scope: ["Landing Page", "VSL", "Copy & Design"],
+    title: "One page with one job: book the call",
+    image: "/images/case-studies/soch-landing-page/landing-hero.jpg",
+    imageAlt: "Soch audit landing page: Done-For-You AI Automation for Businesses",
+    imageRatio: "16/9",
+  },
+  {
+    slug: "etz-riz",
+    client: "etz.riz",
+    sector: "Creator account",
+    platform: "Instagram Reels",
+    scope: ["Ideation", "Scripting", "Video Editing"],
+    title: "Turning one creator into a publishing engine",
+    image: "/images/case-studies/etz-riz/unrejectable-resume.jpg",
+    imageAlt: "etz.riz Reel: How to make your resume unrejectable",
+    imageRatio: "3/4",
+    imageFocus: "object-[50%_62%]",
+  },
+  {
+    slug: "shaping-wealth",
+    client: "Shaping Wealth",
+    sector: "Behavioural finance channel",
+    platform: "YouTube",
+    scope: ["Thumbnail Design", "Channel Branding"],
+    title: "Making hour-long finance interviews impossible to scroll past",
+    image: "/images/case-studies/shaping-wealth/hal-hershfield.jpg",
+    imageAlt: "Shaping Wealth thumbnail: Your Future Self Is A Stranger, with Hal Hershfield",
+    imageRatio: "16/9",
+  },
+  // Every image in the two below is AI-generated (the candid sets are built to
+  // look like customer photos), so keep that labelling visible on the pages.
+  {
+    slug: "bruto-bakehouse",
+    client: "Bruto Bakehouse",
+    sector: "Cookie bakery",
+    platform: "AI product visuals",
+    scope: ["AI Product Visuals", "Food & Beverage"],
+    title: "Two phone photos in, seventeen visuals out",
+    image: "/images/case-studies/bruto-bakehouse/studio-01.jpg",
+    imageAlt: "AI render of a chocolate chip cookie on white marble",
+    imageRatio: "4/5",
+    imageFocus: "object-center",
+  },
+  {
+    slug: "restoran-loulou",
+    client: "Restoran Loulou",
+    sector: "Brunch & specialty coffee",
+    platform: "AI product visuals",
+    scope: ["AI Product Visuals", "Food & Beverage"],
+    title: "A full brunch campaign, without a single set-up",
+    image: "/images/case-studies/restoran-loulou/studio-01.jpg",
+    imageAlt: "AI render of a croissant with a latte and iced coffee on a window table",
+    imageRatio: "4/5",
+    imageFocus: "object-center",
+  },
+];
+
 /**
  * Homepage proof ticker. Client numbers are derived from CASE_STUDIES so the
  * ribbon can never disagree with the case-study pages; the rest are promises

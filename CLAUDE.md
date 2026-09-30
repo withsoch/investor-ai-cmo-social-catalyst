@@ -65,11 +65,31 @@ parallel* summary of the same four engagements that feeds the homepage:
 (`HeroVisual`), the proof ticker (`PROOF_TICKER` is derived from it) and
 `ClientAvatarStack` (used in many heroes and `CtaBand`) — plus the face grid in
 the `/case-studies` hero and `MoreCaseStudies`, the "more results" strip each
-detail page ends with. The `/case-studies` cards themselves still use their
-own local `CARDS` array. Each entry's optional `highlight` index picks its headline
+detail page ends with. The `/case-studies` results cards still use their
+own local `CARDS` array, mixed in a checkerboard with the work case studies
+(below) into one grid (`ALL_CARDS`). Each entry's optional `highlight` index picks its headline
 metric, read through `headlineMetric()`. If you add, remove, or reslug a case
 study, or change a headline number, update both the standalone page and the
 `CASE_STUDIES` entry, or the homepage and the detail page will drift apart.
+**Content, design and video case studies are a second, separate set.** Six
+more pages (`soch-social-media`, `soch-landing-page`, `etz-riz`,
+`shaping-wealth`, `bruto-bakehouse`, `restoran-loulou`) show production work
+rather than results: each keeps its
+copy in local consts and renders it through the shared layout
+`components/WorkCaseStudy.tsx`, ending with `MoreWork` (the other work pieces)
+instead of `MoreCaseStudies`. Their summaries live in `WORK_CASE_STUDIES` in
+`lib/content.ts`, which feeds their cards in the mixed `/case-studies` grid
+and `MoreWork`. They have no result metrics or client quotes,
+so they are deliberately kept out of `CASE_STUDIES` and everything it feeds
+(homepage results, ticker, hero chip, avatar stack). Never invent an outcome
+number for them; the `facts` tiles are facts about the work ("4 pillars",
+"17 visuals out"), not results.
+Their images are samples of the work, in
+`public/images/case-studies/<slug>/`. The images on `bruto-bakehouse` and
+`restoran-loulou` are AI-generated (the candid ones are built to look like
+customer photos): keep the AI labelling (alt text, gallery notes) on those
+pages. When adding one, add the page, the
+`WORK_CASE_STUDIES` entry and the `app/sitemap.ts` route.
 `components/Testimonials.tsx` (the old carousel) is currently unused. Two
 client photos are local (`public/images/case-studies/`); the other two are
 hotlinked from the Webflow CDN (`cdn.prod.website-files.com`) — check they
