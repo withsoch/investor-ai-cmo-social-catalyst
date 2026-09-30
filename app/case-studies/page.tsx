@@ -222,8 +222,8 @@ export default function CaseStudiesPage() {
               The work, <Emphasis>up close.</Emphasis>
             </h2>
             <p className="lead mt-5 text-muted">
-              Instagram feeds, Reels, YouTube thumbnails and landing pages we
-              produce week in, week out, with the system behind each one.
+              Instagram feeds, Reels, YouTube thumbnails, landing pages and AI
+              product visuals, with the system behind each one.
             </p>
           </Reveal>
 

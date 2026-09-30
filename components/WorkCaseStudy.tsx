@@ -13,6 +13,16 @@ export type WorkImage = {
 
 type Item = { title: string; body: string };
 
+type GalleryGroup = {
+  /** Small heading above this grid, e.g. "Package 1 · Studio assets". */
+  caption?: string;
+  /** One line under the caption. */
+  note?: string;
+  images: WorkImage[];
+  ratio: string;
+  columns: 2 | 3 | 4 | 5;
+};
+
 export type WorkCaseStudyProps = {
   slug: string;
   eyebrow: string;
@@ -35,6 +45,8 @@ export type WorkCaseStudyProps = {
   };
   approach: { title: string; lead?: string; items: Item[]; closer?: string };
   anatomy?: {
+    /** Side label; defaults to "Anatomy". */
+    label?: string;
     title: string;
     lead?: string;
     parts: Item[];
@@ -43,21 +55,23 @@ export type WorkCaseStudyProps = {
     /** Optional worked example beside the parts, e.g. a written-out caption stack. */
     example?: { line: string; note: string }[];
   };
-  gallery: {
+  gallery: GalleryGroup & {
     title: string;
     lead: string;
-    images: WorkImage[];
-    ratio: string;
-    columns: 2 | 3 | 4;
+    /** Further captioned grids in the same band. */
+    more?: GalleryGroup[];
   };
   range?: {
+    /** Side label; defaults to "Range". */
+    label?: string;
     title: string;
     lead?: string;
     items: (Item & { tag: string; image?: WorkImage })[];
     /** object-position for the card images; defaults to the top of the frame. */
     imageFocus?: string;
   };
-  process: { title: string; lead?: string; steps: Item[]; standards: string[] };
+  /** `label` defaults to "How it runs". Four or five steps fill the row. */
+  process: { label?: string; title: string; lead?: string; steps: Item[]; standards: string[] };
   delivered: { title: string; items: Item[] };
   cta: { title: string; subtitle: string };
 };
@@ -65,10 +79,18 @@ export type WorkCaseStudyProps = {
 /** Tint per fact tile, matching the /case-studies cards. */
 const TINTS = ["bg-peach", "bg-lilac-soft", "bg-sun-soft"];
 
-const GALLERY_COLS: Record<2 | 3 | 4, string> = {
+const GALLERY_COLS: Record<GalleryGroup["columns"], string> = {
   2: "sm:grid-cols-2",
   3: "grid-cols-2 lg:grid-cols-3",
   4: "grid-cols-2 lg:grid-cols-4",
+  5: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
+};
+
+const GALLERY_SIZES: Record<GalleryGroup["columns"], string> = {
+  2: "(min-width: 640px) 45vw, 90vw",
+  3: "(min-width: 1024px) 22rem, 45vw",
+  4: "(min-width: 1024px) 16rem, 45vw",
+  5: "(min-width: 1024px) 13rem, (min-width: 640px) 30vw, 45vw",
 };
 
 const display = { fontFamily: "var(--font-display)" };
@@ -277,26 +299,31 @@ export function WorkCaseStudy(p: WorkCaseStudyProps) {
             <h2 className="text-h2 mt-5 !text-white">{p.gallery.title}</h2>
             <p className="lead mt-5 !text-white/75">{p.gallery.lead}</p>
           </Reveal>
-          <div className={`mt-12 grid gap-4 ${GALLERY_COLS[p.gallery.columns]}`}>
-            {p.gallery.images.map((img, i) => (
-              <Reveal key={img.src} delay={(i % 4) * 0.06}>
-                <div className="overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10">
-                  <Photo
-                    src={img.src}
-                    alt={img.alt}
-                    ratio={p.gallery.ratio}
-                    sizes={p.gallery.columns === 2 ? "(min-width: 640px) 45vw, 90vw" : "(min-width: 1024px) 22rem, 45vw"}
-                  />
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          {[p.gallery, ...(p.gallery.more ?? [])].map((g, gi) => (
+            <div key={g.caption ?? gi} className={gi ? "mt-16" : "mt-12"}>
+              {g.caption && (
+                <Reveal className="mb-6 max-w-2xl">
+                  <h3 className="text-[0.72rem] font-bold uppercase tracking-widest text-sun">{g.caption}</h3>
+                  {g.note && <p className="mt-2 text-[0.95rem] leading-relaxed text-white/75">{g.note}</p>}
+                </Reveal>
+              )}
+              <div className={`grid gap-4 ${GALLERY_COLS[g.columns]}`}>
+                {g.images.map((img, i) => (
+                  <Reveal key={img.src} delay={(i % 4) * 0.06}>
+                    <div className="overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10">
+                      <Photo src={img.src} alt={img.alt} ratio={g.ratio} sizes={GALLERY_SIZES[g.columns]} />
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* ── Anatomy ── */}
       {p.anatomy && (
-        <Section label="Anatomy">
+        <Section label={p.anatomy.label ?? "Anatomy"}>
           <Reveal>
             <h2 className="text-h2">{p.anatomy.title}</h2>
             {p.anatomy.lead && <p className="mt-6 max-w-3xl text-[1rem] leading-relaxed text-slate">{p.anatomy.lead}</p>}
@@ -338,7 +365,7 @@ export function WorkCaseStudy(p: WorkCaseStudyProps) {
 
       {/* ── Range ── */}
       {range && (
-        <Section label="Range">
+        <Section label={range.label ?? "Range"}>
           <Reveal>
             <h2 className="text-h2">{range.title}</h2>
             {range.lead && <p className="mt-6 max-w-3xl text-[1rem] leading-relaxed text-slate">{range.lead}</p>}
@@ -363,13 +390,13 @@ export function WorkCaseStudy(p: WorkCaseStudyProps) {
       )}
 
       {/* ── Process ── */}
-      <Section label="How it runs">
+      <Section label={p.process.label ?? "How it runs"}>
         <Reveal>
           <h2 className="text-h2">{p.process.title}</h2>
           {p.process.lead && <p className="mt-6 max-w-3xl text-[1rem] leading-relaxed text-slate">{p.process.lead}</p>}
         </Reveal>
         <Reveal delay={0.05}>
-          <ol className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <ol className={`mt-10 grid gap-3 sm:grid-cols-2 ${p.process.steps.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-5"}`}>
             {p.process.steps.map((s, i) => (
               <li key={s.title} className="rounded-2xl bg-cream p-6 ring-1 ring-line">
                 <span className="text-[0.68rem] font-bold uppercase tracking-widest text-brand">

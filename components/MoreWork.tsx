@@ -11,7 +11,10 @@ import { WORK_CASE_STUDIES } from "@/lib/content";
  * strip (MoreCaseStudies).
  */
 export function MoreWork({ current }: { current: string }) {
-  const others = WORK_CASE_STUDIES.filter((w) => w.slug !== current);
+  // the next three after this one, wrapping round, so every page gets linked
+  // from somewhere and the row never ends on an orphan card
+  const at = WORK_CASE_STUDIES.findIndex((w) => w.slug === current);
+  const others = [1, 2, 3].map((k) => WORK_CASE_STUDIES[(at + k) % WORK_CASE_STUDIES.length]);
   return (
     <section className="relative overflow-hidden bg-forest py-20 sm:py-24">
       <Aurora tone="dark" />

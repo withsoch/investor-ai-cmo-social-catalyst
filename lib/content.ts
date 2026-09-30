@@ -690,6 +690,36 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     imageAlt: "Shaping Wealth thumbnail: Your Future Self Is A Stranger, with Hal Hershfield",
     imageRatio: "16/9",
   },
+  // The two below are sample catalogs made on spec, not paid engagements, and
+  // every image in them is AI-generated - keep both facts visible on the pages.
+  {
+    slug: "bruto-bakehouse",
+    client: "Bruto Bakehouse",
+    sector: "Cookie bakery",
+    platform: "AI product visuals",
+    scope: ["AI Product Visuals", "Sample Catalog"],
+    title: "Two phone photos in, seventeen visuals out",
+    summary:
+      "A sample AI catalog: two raw phone shots of cookies turned into studio, lifestyle and candid assets for delivery apps, Instagram and story ads, with no shoot.",
+    image: "/images/case-studies/bruto-bakehouse/studio-01.jpg",
+    imageAlt: "AI render of a chocolate chip cookie on white marble",
+    imageRatio: "4/5",
+    imageFocus: "object-center",
+  },
+  {
+    slug: "restoran-loulou",
+    client: "Restoran Loulou",
+    sector: "Brunch & specialty coffee",
+    platform: "AI product visuals",
+    scope: ["AI Product Visuals", "Sample Catalog"],
+    title: "A full brunch campaign, without a single set-up",
+    summary:
+      "A sample AI catalog of studio menu shots, styled lifestyle scenes and candid dining-room snaps, built without props or a physical set.",
+    image: "/images/case-studies/restoran-loulou/studio-01.jpg",
+    imageAlt: "AI render of a croissant with a latte and iced coffee on a window table",
+    imageRatio: "4/5",
+    imageFocus: "object-center",
+  },
 ];
 
 /**
