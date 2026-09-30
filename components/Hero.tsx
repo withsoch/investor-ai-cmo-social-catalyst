@@ -1,57 +1,79 @@
-import Link from "next/link";
 import { AuditButton } from "@/components/AuditButton";
-import { CTAS, HERO } from "@/lib/content";
+import { BookButton } from "@/components/BookButton";
+import { ClientAvatarStack } from "@/components/ClientAvatarStack";
+import { HeroHeadline } from "@/components/HeroHeadline";
+import { HeroVisual } from "@/components/HeroVisual";
 import { Icon } from "@/components/Icons";
-import { SocialGrowthAnim } from "@/components/SocialGrowthAnim";
+import { CTAS, HERO } from "@/lib/content";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-mist">
-      {/* one soft, flat peach wash behind the visual, no glow blobs */}
-      <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-1/2 bg-[radial-gradient(60%_60%_at_70%_35%,var(--color-peach),transparent_70%)] opacity-70 lg:block" />
+    // Pulled up under the sticky, transparent header so the cream and the
+    // aurora run all the way to the top of the viewport.
+    <section className="relative -mt-[4.5rem] overflow-hidden bg-cream pt-[4.5rem]">
+      {/* atmosphere: three slow colour blobs and a faded dot grid */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="animate-aurora-a absolute -left-[12%] -top-[18%] h-[32rem] w-[32rem] rounded-full bg-brand/25 blur-[90px]" />
+        <div className="animate-aurora-b absolute -right-[10%] top-[2%] h-[30rem] w-[30rem] rounded-full bg-sun/45 blur-[90px]" />
+        <div className="animate-aurora-c absolute -bottom-[30%] left-[30%] hidden h-[30rem] w-[30rem] rounded-full bg-lilac/30 blur-[100px] sm:block" />
+        <div className="bg-dots absolute inset-0 [mask-image:radial-gradient(65%_60%_at_50%_45%,black,transparent)]" />
+      </div>
 
-      <div className="container-x relative grid items-start gap-10 py-10 sm:py-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:py-14">
+      <div className="container-x relative grid items-center gap-8 pb-14 pt-8 sm:pt-12 lg:grid-cols-[1.04fr_0.96fr] lg:gap-8 lg:pb-20 lg:pt-14">
         {/* ---- copy ---- */}
         <div className="max-w-xl">
           <span className="eyebrow animate-fade-up [animation-delay:0ms]">{HERO.eyebrow}</span>
 
-          <h1 className="text-display text-[clamp(2rem,1.2rem+3vw,3.35rem)] mt-5 animate-fade-up [animation-delay:80ms]">
-            {HERO.headline}{" "}
-            <span className="italic text-brand">{HERO.headlineEmphasis}</span>
-          </h1>
+          <HeroHeadline className="text-display mt-5 text-[clamp(2.15rem,1.2rem+3.4vw,3.6rem)] animate-fade-up [animation-delay:80ms]" />
 
-          <p className="lead text-[clamp(0.95rem,0.88rem+0.28vw,1.1rem)] mt-5 animate-fade-up [animation-delay:160ms]">
-            We manage your digital presence, so the people looking for what
-            you do find you first. You set the vision. We handle the rest.
+          <p className="lead mt-5 max-w-lg text-[clamp(0.98rem,0.9rem+0.3vw,1.12rem)] animate-fade-up [animation-delay:160ms]">
+            {HERO.lead}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3 animate-fade-up [animation-delay:240ms]">
             <AuditButton
-              variant="secondary"
+              variant="primary"
               size="lg"
-              className="cursor-pointer hover:bg-[#1a1a1a] hover:text-white hover:!ring-[#1a1a1a]"
+              className="btn-shine cursor-pointer shadow-[0_18px_34px_-14px_var(--color-brand)]"
             >
               {CTAS.secondary.label}
-            </AuditButton>
-          </div>
-
-          <div className="mt-8 flex items-center gap-3 animate-fade-up [animation-delay:340ms]">
-            <Link
-              href="/packages"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-slate transition-colors hover:text-ink"
-            >
-              See what&apos;s in a package
               <Icon
                 name="arrow"
-                className="h-4 w-4 text-brand transition-transform duration-200 group-hover:translate-x-0.5"
+                className="h-[1.05em] w-[1.05em] transition-transform duration-200 group-hover:translate-x-0.5"
               />
-            </Link>
+            </AuditButton>
+            <BookButton variant="secondary" size="lg" className="bg-white/80 backdrop-blur">
+              {CTAS.primary.label}
+            </BookButton>
           </div>
+
+          <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[0.85rem] text-slate animate-fade-up [animation-delay:300ms]">
+            {HERO.microcopy.map((m) => (
+              <li key={m} className="inline-flex items-center gap-1.5">
+                <Icon name="check" className="h-4 w-4 text-leaf" strokeWidth={2.4} />
+                {m}
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href="#results"
+            className="group mt-9 inline-flex max-w-full items-center gap-3 rounded-full bg-white/75 py-1.5 pl-1.5 pr-4 ring-1 ring-line backdrop-blur transition-colors hover:bg-white animate-fade-up [animation-delay:380ms]"
+          >
+            <ClientAvatarStack size={34} className="shrink-0" />
+            <span className="text-[0.8rem] leading-snug text-ink-soft">
+              {HERO.proofLine}
+              <Icon
+                name="arrow"
+                className="ml-1 inline h-3.5 w-3.5 text-brand transition-transform duration-200 group-hover:translate-x-0.5"
+              />
+            </span>
+          </a>
         </div>
 
-        {/* ---- product visual ---- */}
-        <div className="animate-pop lg:mx-0 lg:ml-auto lg:origin-top lg:scale-[0.93]">
-          <SocialGrowthAnim />
+        {/* ---- photo collage ---- */}
+        <div className="animate-pop">
+          <HeroVisual />
         </div>
       </div>
     </section>

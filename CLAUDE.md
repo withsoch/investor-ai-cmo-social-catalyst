@@ -73,7 +73,11 @@ and triggers the same two flows on page load.
 
 **Design tokens live in `app/globals.css`** under a Tailwind v4 `@theme` block
 (`--color-brand`, `--color-ink`, `--color-mist`, channel-badge colors, etc.) —
-change tokens there, not with inline hex values.
+change tokens there, not with inline hex values. The homepage adds `--color-sun`
+/ `--color-lilac` (plus `-soft` tints) and a set of atmosphere utilities in the
+same file (`animate-aurora-a/b/c` drifting glows, `animate-marquee-reverse`,
+`animate-spin-slow`, `btn-shine`, `bg-dots`), all disabled under
+`prefers-reduced-motion`. Text on `bg-brand` is ink, never white (contrast).
 `components/StatCounter.tsx` (animated count-up, integer values only — see
 its rounding) and `components/ui/Reveal.tsx` (scroll-triggered fade+rise,
 respects reduced-motion) are the two animation primitives reused across
