@@ -82,7 +82,8 @@ instead of `MoreCaseStudies`. Their summaries live in `WORK_CASE_STUDIES` in
 and `MoreWork`. They have no result metrics or client quotes,
 so they are deliberately kept out of `CASE_STUDIES` and everything it feeds
 (homepage results, ticker, hero chip, avatar stack). Never invent an outcome
-number for them; the `facts` tiles are deliverables ("4 pillars", "Weekly").
+number for them; the `facts` tiles and the card `stats` boxes are facts about
+the work ("4 pillars", "17 AI visuals"), not results.
 Their images are samples of the work, in
 `public/images/case-studies/<slug>/`. The images on `bruto-bakehouse` and
 `restoran-loulou` are AI-generated (the candid ones are built to look like

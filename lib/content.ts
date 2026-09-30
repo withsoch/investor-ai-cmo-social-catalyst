@@ -620,7 +620,13 @@ export type WorkCaseStudy = {
   platform: string;
   scope: string[];
   title: string;
-  summary: string;
+  /**
+   * The three boxes on the /case-studies card. These are facts about the work
+   * itself (counts, formats, runtimes) taken from the case-study material, not
+   * outcomes - never put an unverified result here. Keep each value to about
+   * four characters, or it clips inside the box on phones.
+   */
+  stats: { value: string; label: string }[];
   /** Sample of the actual work, rooted at public/. */
   image: string;
   imageAlt: string;
@@ -634,8 +640,8 @@ export type WorkCaseStudy = {
 // result metrics or client quotes (none were supplied), so they stay out of
 // the homepage results cards, proof ticker and avatar stack. Each slug has its
 // own page under app/case-studies/<slug>/page.tsx built on
-// components/WorkCaseStudy.tsx; this summary feeds the /case-studies "work"
-// grid and the MoreWork strip at the foot of those pages.
+// components/WorkCaseStudy.tsx; this summary feeds their cards in the mixed
+// /case-studies grid and the MoreWork strip at the foot of those pages.
 export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
   {
     slug: "soch-social-media",
@@ -644,8 +650,11 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "Instagram",
     scope: ["Social Media Management", "Design"],
     title: "Building an Instagram presence from zero followers",
-    summary:
-      "Positioning, a locked visual system, content production and day-to-day publishing for an AI automation agency, built from scratch.",
+    stats: [
+      { value: "0", label: "Followers at the start" },
+      { value: "4", label: "Content pillars" },
+      { value: "5", label: "Fixed parts in every post" },
+    ],
     image: "/images/case-studies/soch-social-media/why-automations-fail.jpg",
     imageAlt: "Soch Instagram post: Why 80% of automations fail",
     imageRatio: "3/4",
@@ -657,8 +666,11 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "Landing page + VSL",
     scope: ["Landing Page", "VSL", "Copy & Design"],
     title: "One page with one job: book the call",
-    summary:
-      "Copy, design, a sub-three-minute VSL and case-study cards for a cold-traffic landing page with a single conversion goal.",
+    stats: [
+      { value: "1", label: "Conversion goal" },
+      { value: "<3", label: "Minutes of VSL" },
+      { value: "4", label: "Case studies on the page" },
+    ],
     image: "/images/case-studies/soch-landing-page/landing-hero.jpg",
     imageAlt: "Soch audit landing page: Done-For-You AI Automation for Businesses",
     imageRatio: "16/9",
@@ -670,8 +682,11 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "Instagram Reels",
     scope: ["Ideation", "Scripting", "Video Editing"],
     title: "Turning one creator into a publishing engine",
-    summary:
-      "Weekly Reel ideation, scripting and editing for a creator posting about AI and careers. The creator films; everything else is handled.",
+    stats: [
+      { value: "4", label: "Formats in rotation" },
+      { value: "1", label: "Step for the creator: filming" },
+      { value: "0.3s", label: "Max dead air in any cut" },
+    ],
     image: "/images/case-studies/etz-riz/unrejectable-resume.jpg",
     imageAlt: "etz.riz Reel: How to make your resume unrejectable",
     imageRatio: "3/4",
@@ -684,8 +699,11 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "YouTube",
     scope: ["Thumbnail Design", "Channel Branding"],
     title: "Making hour-long finance interviews impossible to scroll past",
-    summary:
-      "Every thumbnail on a weekly interview channel for financial advisers, designed inside one system that reads at phone size.",
+    stats: [
+      { value: "6", label: "Fixed parts per thumbnail" },
+      { value: "4", label: "Rules every design follows" },
+      { value: "1", label: "Red highlight per design" },
+    ],
     image: "/images/case-studies/shaping-wealth/hal-hershfield.jpg",
     imageAlt: "Shaping Wealth thumbnail: Your Future Self Is A Stranger, with Hal Hershfield",
     imageRatio: "16/9",
@@ -699,8 +717,11 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "AI product visuals",
     scope: ["AI Product Visuals", "Food & Beverage"],
     title: "Two phone photos in, seventeen visuals out",
-    summary:
-      "An AI visual catalog: two raw phone shots of cookies turned into studio, lifestyle and candid assets for delivery apps, Instagram and story ads, with no shoot.",
+    stats: [
+      { value: "2", label: "Phone photos in" },
+      { value: "17", label: "AI visuals out" },
+      { value: "3", label: "Channel packages" },
+    ],
     image: "/images/case-studies/bruto-bakehouse/studio-01.jpg",
     imageAlt: "AI render of a chocolate chip cookie on white marble",
     imageRatio: "4/5",
@@ -713,8 +734,11 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "AI product visuals",
     scope: ["AI Product Visuals", "Food & Beverage"],
     title: "A full brunch campaign, without a single set-up",
-    summary:
-      "An AI visual catalog of studio menu shots, styled lifestyle scenes and candid dining-room snaps, built without props or a physical set.",
+    stats: [
+      { value: "17", label: "AI visuals" },
+      { value: "3", label: "Channel packages" },
+      { value: "0", label: "Physical set-ups" },
+    ],
     image: "/images/case-studies/restoran-loulou/studio-01.jpg",
     imageAlt: "AI render of a croissant with a latte and iced coffee on a window table",
     imageRatio: "4/5",

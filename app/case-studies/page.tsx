@@ -75,7 +75,7 @@ const CARDS = [
   },
 ];
 
-/** One card shape for both kinds: results carry stats, work carries a summary. */
+/** One card shape for both kinds, each with three stat boxes. */
 type GridCard = {
   href: string;
   image: string;
@@ -85,8 +85,7 @@ type GridCard = {
   tags: string[];
   byline: string;
   title: string;
-  stats?: { value: string; label: string }[];
-  summary?: string;
+  stats: { value: string; label: string }[];
   cta: string;
 };
 
@@ -110,7 +109,7 @@ const WORK_CARDS: GridCard[] = WORK_CASE_STUDIES.map((w) => ({
   tags: w.scope,
   byline: `${w.client} · ${w.platform}`,
   title: w.title,
-  summary: w.summary,
+  stats: w.stats,
   cta: "See the work",
 }));
 
@@ -231,24 +230,21 @@ export default function CaseStudiesPage() {
                       >
                         {card.title}
                       </h2>
-                      {card.summary && <p className="mt-2 text-[0.92rem] leading-relaxed text-slate">{card.summary}</p>}
                     </div>
 
-                    {card.stats && (
-                      <div className="grid w-full grid-cols-3 gap-2">
-                        {card.stats.map((st, k) => (
-                          <div key={st.label} className={`min-w-0 overflow-hidden rounded-xl p-3 ${STAT_TINTS[k % STAT_TINTS.length]}`}>
-                            <p
-                              className="whitespace-nowrap text-[1.3rem] font-bold leading-none tracking-tight text-ink"
-                              style={{ fontFamily: "var(--font-display)" }}
-                            >
-                              {st.value}
-                            </p>
-                            <p className="mt-1 text-[11px] leading-[1.4] text-ink-soft">{st.label}</p>
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                    <div className="grid w-full grid-cols-3 gap-2">
+                      {card.stats.map((st, k) => (
+                        <div key={st.label} className={`min-w-0 overflow-hidden rounded-xl p-3 ${STAT_TINTS[k % STAT_TINTS.length]}`}>
+                          <p
+                            className="whitespace-nowrap text-[1.3rem] font-bold leading-none tracking-tight text-ink"
+                            style={{ fontFamily: "var(--font-display)" }}
+                          >
+                            {st.value}
+                          </p>
+                          <p className="mt-1 text-[11px] leading-[1.4] text-ink-soft">{st.label}</p>
+                        </div>
+                      ))}
+                    </div>
 
                     <span className="mt-auto inline-flex items-center gap-2 text-[14px] font-semibold text-ink">
                       {card.cta}
