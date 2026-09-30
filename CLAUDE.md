@@ -13,8 +13,8 @@ English. Pricing is quote-based: no package prices appear on the site. Live at
 Tailwind CSS v4 · Motion.
 
 There is no test suite and no test script — verification is `tsc --noEmit`,
-`npm run lint`, and `npm run build`. Lint currently reports 9 known `<img>`
-warnings in the case-study pages and no errors.
+`npm run lint`, and `npm run build`. Lint currently reports 7 known `<img>`
+warnings in the case-study detail pages and no errors.
 
 ## Commands
 
@@ -63,7 +63,10 @@ data-driven. The `CASE_STUDIES` array in `lib/content.ts` is a *separate,
 parallel* summary of the same four engagements that feeds the homepage:
 `ClientResults` (the results cards), the hero's cycling result chip
 (`HeroVisual`), the proof ticker (`PROOF_TICKER` is derived from it) and
-`ClientAvatarStack`. Each entry's optional `highlight` index picks its headline
+`ClientAvatarStack` (used in many heroes and `CtaBand`) — plus the face grid in
+the `/case-studies` hero and `MoreCaseStudies`, the "more results" strip each
+detail page ends with. The `/case-studies` cards themselves still use their
+own local `CARDS` array. Each entry's optional `highlight` index picks its headline
 metric, read through `headlineMetric()`. If you add, remove, or reslug a case
 study, or change a headline number, update both the standalone page and the
 `CASE_STUDIES` entry, or the homepage and the detail page will drift apart.
@@ -79,12 +82,22 @@ still resolve before relying on them.
 `PackagesPreview` → FAQ (inline) → `HomeCta`. Rules when editing it:
 - Full-bleed coloured sections are not wrapped in an outer `<Reveal>` —
   fading a whole band flashes white. Each section reveals its own content.
-- `HomeCta` is homepage-only; every other page uses the shared `CtaBand`.
-  Likewise `Stats` is still used on About, just not on the homepage.
+- `HomeCta` is homepage-only; every other page ends with the shared `CtaBand`
+  (same ink-and-aurora look; pass `audit={false}` where the free audit is
+  already the page's main ask, as on `/audit`). `Stats` is used on About only.
 - `SocialGrowthAnim` lives in the channels band with `toast={false}`, because
   the hero already shows its exported `NotificationToast`.
 - Stock photos are atmosphere only and are never captioned as clients; faces
   tied to results are always the real `CASE_STUDIES` photos.
+
+**Inner pages share one visual kit** so they match the homepage: every hero
+is `InnerHero` (cream + `Aurora`, pulled up under the header, slots for
+`eyebrow`/`title`/`lead`/`actions`/`footer`/`aside`), usually with `HeroPhoto`
++ `FloatChip`s as the aside and `Emphasis` for the italic orange phrase in the
+title. `ui/Aurora` (`tone="cream" | "dark" | "brand"`) is the background glow for
+any full-bleed band; `ProofPill` is the client-faces link. Case-study detail
+pages don't use `InnerHero` (their heroes are bespoke) but share the cream +
+`Aurora` hero background and the tilted colour plate behind the portrait.
 
 **Booking and the audit modal are both global, not per-page.** `AuditModalProvider`
 wraps the whole app in `app/layout.tsx`, so `useAuditModal()` (`context/AuditModalContext.tsx`)
@@ -113,7 +126,10 @@ nearly every section and the case-study pages; `components/ui/Highlight.tsx`
 smaller homepage ones. **Never render different elements or text based on
 `useReducedMotion()`** — it is `null` on the server, so that causes a
 hydration mismatch. Render the same markup and hide motion with
-`motion-reduce:` classes, or change the value after mount.
+`motion-reduce:` classes, or change the value after mount. In inline
+`style={{ fontSize: "clamp(...)" }}`, put spaces around `+`/`-`
+(`clamp(2rem, 1.5rem + 1vw, 3rem)`): without them the declaration is invalid
+and silently dropped. Tailwind arbitrary classes add the spaces for you.
 
 **Blog & SEO.** Posts are markdown files with frontmatter in `content/blog/`,
 committed by the Soch SEO pipeline and parsed at build time by `lib/blog.ts`

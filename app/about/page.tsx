@@ -1,19 +1,29 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { Stats } from "@/components/Stats";
 import { CtaBand } from "@/components/CtaBand";
 import { BookButton } from "@/components/BookButton";
+import { AuditButton } from "@/components/AuditButton";
+import { InnerHero } from "@/components/InnerHero";
+import { HeroPhoto, FloatChip } from "@/components/HeroPhoto";
+import { ProofPill } from "@/components/ProofPill";
+import { PlatformMark } from "@/components/PlatformIcons";
 import { Icon, type IconName } from "@/components/Icons";
 import { Avatar } from "@/components/ui/Avatar";
 import { Photo } from "@/components/ui/Photo";
-import { TEAM } from "@/lib/content";
+import { Emphasis } from "@/components/ui/Emphasis";
+import { Highlight } from "@/components/ui/Highlight";
+import { SpinBadge } from "@/components/ui/SpinBadge";
+import { CTAS, TEAM } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "Social Catalyst runs Instagram, LinkedIn, Google and reviews for B2B and growing businesses.",
 };
+
+/** Card tints for the principles grid, in order. */
+const TINTS = ["bg-peach", "bg-lilac-soft", "bg-sun-soft", "bg-mist"];
 
 const VALUES: { icon: IconName; title: string; body: string }[] = [
   {
@@ -41,55 +51,70 @@ const VALUES: { icon: IconName; title: string; body: string }[] = [
 export default function AboutPage() {
   return (
     <>
-      <section className="border-b border-line bg-mist">
-        <div className="container-x py-16 sm:py-20 lg:py-24">
-          <div className="grid items-stretch gap-12 lg:grid-cols-2 lg:gap-16">
-            <div className="flex max-w-xl flex-col justify-center">
-              <Reveal delay={0.05}>
-                <h1 className="text-display text-[clamp(2.5rem,1.5rem+3.2vw,3.9rem)]">
-                  Built for B2B and growing businesses like yours
-                </h1>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p className="lead mt-6 max-w-2xl">
-                  Most marketing agencies serve everyone with the same
-                  generic playbook: a content calendar, a posting schedule,
-                  and not much else. We built Social Catalyst to treat Google, reviews
-                  and LinkedIn outreach as seriously as the Instagram feed,
-                  because that&apos;s where B2B business actually gets decided.
-                </p>
-              </Reveal>
-              <Reveal delay={0.15}>
-                <div className="mt-8">
-                  <BookButton variant="primary" size="lg" arrow>
-                    Get a quote
-                  </BookButton>
+      <InnerHero
+        eyebrow="About Social Catalyst"
+        title={
+          <>
+            Built for B2B and growing businesses <Emphasis>like yours.</Emphasis>
+          </>
+        }
+        lead={
+          <>
+            Most marketing agencies serve everyone with the same generic
+            playbook: a content calendar, a posting schedule, and not much
+            else. We built Social Catalyst to treat Google, reviews and
+            LinkedIn outreach as seriously as the Instagram feed, because
+            that&apos;s where B2B business actually gets decided.
+          </>
+        }
+        actions={
+          <>
+            <BookButton variant="primary" size="lg" arrow className="btn-shine shadow-[0_18px_34px_-14px_var(--color-brand)]">
+              {CTAS.primary.label}
+            </BookButton>
+            <AuditButton variant="secondary" size="lg" className="cursor-pointer bg-white/80">
+              {CTAS.secondary.label}
+            </AuditButton>
+          </>
+        }
+        footer={<ProofPill />}
+        aside={
+          <HeroPhoto
+            src="/Service Images/about-hero-team-meeting.webp"
+            alt="A small team talking around a table in their office"
+            imgClassName="object-[55%_center]"
+          >
+            <FloatChip className="-left-2 top-2 hidden sm:block" float="animate-float-a">
+              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-muted">Every caption</p>
+              <p className="mt-1.5 flex items-center gap-1.5">
+                <span className="rounded-md bg-ink px-2 py-0.5 text-[0.72rem] font-bold text-white">EE</span>
+                <span className="text-[0.72rem] text-muted">+</span>
+                <span className="rounded-md bg-brand px-2 py-0.5 text-[0.72rem] font-bold text-white">EN</span>
+                <span className="ml-1 text-[0.78rem] font-semibold text-ink">Written twice</span>
+              </p>
+            </FloatChip>
+            <FloatChip className="-left-1 bottom-1 sm:-left-6" float="animate-float-c">
+              <div className="flex items-center gap-2.5">
+                <PlatformMark id="google" size="sm" />
+                <div>
+                  <p className="text-[0.75rem] font-semibold leading-tight text-ink">Every review answered</p>
+                  <p className="text-[0.68rem] leading-tight text-muted">Within 24 hours</p>
                 </div>
-              </Reveal>
-            </div>
-
-            {/* hero image */}
-            <Reveal delay={0.15} className="h-full">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl lg:aspect-auto lg:h-full lg:min-h-[480px]">
-                <Image
-                  src="/Service Images/about-hero-team-meeting.webp"
-                  alt="A small team talking around a table in their office"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
               </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+            </FloatChip>
+            <div className="absolute -top-1 right-0 z-30 sm:-right-3">
+              <SpinBadge text="Real posts · Real replies · " size={100} />
+            </div>
+          </HeroPhoto>
+        }
+      />
 
       {/* mission */}
       <section className="bg-white py-20 sm:py-24 lg:py-28">
         <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <h2 className="text-h2">The problem we kept seeing</h2>
+            <span className="eyebrow">Why we exist</span>
+            <h2 className="text-h2 mt-5">The problem we kept seeing</h2>
             <div className="mt-6 space-y-4 text-slate">
               <p>
                 Most social media services sell posts. They write content,
@@ -114,16 +139,23 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <figure className="rounded-2xl border border-line bg-cream p-8 sm:p-10">
+            <figure className="relative overflow-hidden rounded-3xl bg-lilac-soft p-8 sm:p-10">
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-2 -top-10 select-none text-[11rem] leading-none text-lilac/40"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                &rdquo;
+              </span>
               <p
-                className="text-[1.6rem] leading-snug text-ink"
+                className="relative text-[1.6rem] leading-snug text-ink"
                 style={{ fontFamily: "var(--font-display)", fontWeight: 500 }}
               >
                 &ldquo;We don&apos;t just make your feed look busy. We make you{" "}
-                <span className="text-brand">easy to find</span>{" "}
+                <Highlight>easy to find</Highlight>{" "}
                 and easy to do business with.&rdquo;
               </p>
-              <figcaption className="mt-6 flex items-center gap-3 border-t border-dashed border-line pt-6">
+              <figcaption className="relative mt-6 flex items-center gap-3 border-t border-dashed border-ink/15 pt-6">
                 {/* the name is right beside this, so the photo is decorative
                     here and the fallback disc stays out of the a11y tree */}
                 <Avatar
@@ -202,22 +234,27 @@ export default function AboutPage() {
 
       <Stats />
 
-      {/* values - editorial 2-col, dashed dividers, no glossy tiles */}
-      <section className="bg-cream py-20 sm:py-24 lg:py-28">
+      {/* values - tinted cards, one accent per principle */}
+      <section className="bg-white py-20 sm:py-24 lg:py-28">
         <div className="container-x">
-          <div className="max-w-2xl">
-            <h2 className="text-h2">Principles that shape every business we run.</h2>
-          </div>
-          <div className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+          <Reveal className="max-w-2xl">
+            <span className="eyebrow">How we work</span>
+            <h2 className="text-h2 mt-5">
+              Principles that shape <Highlight>every business</Highlight> we run.
+            </h2>
+          </Reveal>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
             {VALUES.map((v, i) => (
-              <Reveal
-                key={v.title}
-                delay={(i % 2) * 0.1}
-                className={`${i % 2 === 1 ? "sm:border-l sm:border-dashed sm:border-line sm:pl-12" : ""} ${i >= 2 ? "border-t border-dashed border-line pt-10 sm:border-t-0 sm:pt-0" : ""}`}
-              >
-                <Icon name={v.icon} className="h-7 w-7 text-brand" strokeWidth={1.5} />
-                <h3 className="text-h3 mt-4">{v.title}</h3>
-                <p className="mt-2.5 text-[0.975rem] leading-relaxed text-slate">{v.body}</p>
+              <Reveal key={v.title} delay={(i % 2) * 0.1} className="h-full">
+                <article
+                  className={`group h-full rounded-3xl p-7 transition-transform duration-300 hover:-translate-y-1.5 sm:p-8 ${TINTS[i % TINTS.length]}`}
+                >
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-[var(--shadow-card)] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105">
+                    <Icon name={v.icon} className="h-6 w-6 text-brand" strokeWidth={1.7} />
+                  </span>
+                  <h3 className="text-h3 mt-5">{v.title}</h3>
+                  <p className="mt-2.5 text-[0.975rem] leading-relaxed text-slate">{v.body}</p>
+                </article>
               </Reveal>
             ))}
           </div>

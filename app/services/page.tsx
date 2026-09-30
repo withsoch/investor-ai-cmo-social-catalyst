@@ -1,15 +1,24 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { ServicesShowcase } from "@/components/ServicesShowcase";
 import { BookButton } from "@/components/BookButton";
+import { AuditButton } from "@/components/AuditButton";
 import { CtaBand } from "@/components/CtaBand";
-import { Reveal } from "@/components/ui/Reveal";
+import { InnerHero } from "@/components/InnerHero";
+import { HeroPhoto, FloatChip } from "@/components/HeroPhoto";
+import { PlatformMark } from "@/components/PlatformIcons";
+import { StatValue } from "@/components/StatCounter";
+import { Emphasis } from "@/components/ui/Emphasis";
+import { SpinBadge } from "@/components/ui/SpinBadge";
+import { PLATFORMS } from "@/lib/channels";
+import { CTAS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Services: Social, Google, Reviews & LinkedIn",
   description:
     "Instagram, TikTok and Facebook content, Google Business Profile management, review replies, AI-produced photos and video, one-page websites, LinkedIn outreach, and ad management, for B2B and growing businesses.",
 };
+
+const FACT_TINTS = ["bg-peach", "bg-lilac-soft", "bg-sun-soft"];
 
 const FACTS = [
   { value: "24", label: "Services, across 7 categories" },
@@ -20,77 +29,80 @@ const FACTS = [
 export default function ServicesPage() {
   return (
     <>
-      <section className="border-b border-line bg-mist">
-        <div className="container-x py-16 sm:py-20 lg:py-24">
-          <div className="grid items-stretch gap-12 lg:grid-cols-2 lg:gap-16">
-            <div className="flex max-w-xl flex-col justify-center">
-              <Reveal delay={0}>
-                <span className="eyebrow">Services</span>
-              </Reveal>
-
-              <Reveal delay={0.05}>
-                <h1 className="text-display mt-5 text-[clamp(2.3rem,1.4rem+3vw,3.6rem)]">
-                  Everything your business needs online.{" "}
-                  <span className="italic text-brand">
-                    Take one piece, or hand us the lot.
-                  </span>
-                </h1>
-              </Reveal>
-
-              <Reveal delay={0.1}>
-                <p className="lead mt-5">
-                  Every service below does one of two things: makes you
-                  easier to find, or makes people reach out once they&apos;ve
-                  found you. Across Instagram, Google, LinkedIn, TikTok and
-                  Facebook.
-                </p>
-              </Reveal>
-
-              <Reveal delay={0.15}>
-                <div className="mt-8">
-                  <BookButton variant="primary" size="lg" arrow>
-                    Get a quote
-                  </BookButton>
-                </div>
-              </Reveal>
-
-              <Reveal delay={0.2}>
-                <dl className="mt-10 grid grid-cols-3 gap-6 border-t border-dashed border-line pt-7">
-                  {FACTS.map((f) => (
-                    <div key={f.label}>
-                      <dt className="sr-only">{f.label}</dt>
-                      <dd>
-                        <span
-                          className="block text-[1.75rem] leading-none text-ink"
-                          style={{ fontFamily: "var(--font-display)", fontWeight: 500 }}
-                        >
-                          {f.value}
-                        </span>
-                        <span className="mt-2 block text-[0.78rem] leading-snug text-muted">
-                          {f.label}
-                        </span>
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </Reveal>
-            </div>
-
-            <Reveal delay={0.15} className="h-full">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl lg:aspect-auto lg:h-full lg:min-h-[480px]">
-                <Image
-                  src="/Service Images/services-hero-collage-v2.webp"
-                  alt="An analytics dashboard, social apps on a phone, a LinkedIn profile and Google Maps on a laptop"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
+      <InnerHero
+        eyebrow="Services"
+        title={
+          <>
+            Everything your business needs online.{" "}
+            <Emphasis>Take one piece, or hand us the lot.</Emphasis>
+          </>
+        }
+        lead={
+          <>
+            Every service below does one of two things: makes you easier to
+            find, or makes people reach out once they&apos;ve found you.
+            Across Instagram, Google, LinkedIn, TikTok and Facebook.
+          </>
+        }
+        actions={
+          <>
+            <BookButton variant="primary" size="lg" arrow className="btn-shine shadow-[0_18px_34px_-14px_var(--color-brand)]">
+              {CTAS.primary.label}
+            </BookButton>
+            <AuditButton variant="secondary" size="lg" className="cursor-pointer bg-white/80">
+              {CTAS.secondary.label}
+            </AuditButton>
+          </>
+        }
+        footer={
+          <dl className="grid grid-cols-3 gap-3">
+            {FACTS.map((f, i) => (
+              <div key={f.label} className={`rounded-2xl p-4 ${FACT_TINTS[i % FACT_TINTS.length]}`}>
+                <dt className="sr-only">{f.label}</dt>
+                <dd>
+                  <StatValue
+                    value={f.value}
+                    className="block text-[1.9rem] leading-none text-ink"
+                    style={{ fontFamily: "var(--font-display)", fontWeight: 500 }}
+                  />
+                  <span className="mt-2 block text-[0.75rem] leading-snug text-ink-soft">{f.label}</span>
+                </dd>
               </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+            ))}
+          </dl>
+        }
+        aside={
+          <HeroPhoto
+            src="/Service Images/services-hero-collage-v2.webp"
+            alt="An analytics dashboard, social apps on a phone, a LinkedIn profile and Google Maps on a laptop"
+          >
+            <FloatChip className="-left-2 top-3 hidden sm:block" float="animate-float-a">
+              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-muted">One plan, run across</p>
+              <div className="mt-2 flex gap-1.5">
+                {PLATFORMS.map((p) => (
+                  <PlatformMark key={p.id} id={p.id} size="sm" />
+                ))}
+              </div>
+            </FloatChip>
+            <FloatChip className="-left-1 bottom-1 sm:-left-6" float="animate-float-c">
+              <div className="flex items-center gap-2.5">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-leaf/15 text-leaf">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
+                    <path d="M5 12.5l4.5 4.5L19 7.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <div>
+                  <p className="text-[0.75rem] font-semibold leading-tight text-ink">You approve every post</p>
+                  <p className="text-[0.68rem] leading-tight text-muted">Nothing goes live without you</p>
+                </div>
+              </div>
+            </FloatChip>
+            <div className="absolute -top-1 right-0 z-30 sm:-right-3">
+              <SpinBadge text="7 categories · 1 system · " size={100} icon="social" />
+            </div>
+          </HeroPhoto>
+        }
+      />
 
       <ServicesShowcase />
 
