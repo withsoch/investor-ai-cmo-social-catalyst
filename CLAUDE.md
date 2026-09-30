@@ -4,14 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Marketing site for **Social Catalyst**, a marketing agency for restaurants, cafes and
-shisha lounges — Instagram, Google Business Profile, review management, AI
-content, one-page websites, Wolt & Bolt Food listings, and paid ads. Piloting
-in Tallinn, Estonia. Next.js 16 (App Router) · React 19 · TypeScript ·
+Marketing site for **Social Catalyst**, a social media marketing agency for B2B
+and growing businesses — Instagram, LinkedIn (company pages and outreach),
+Google Business Profile, review management, AI-produced images and video,
+one-page websites, and paid social ads. Captions are written in Estonian and
+English. Pricing is quote-based: no package prices appear on the site. Live at
+`www.withsocialcatalyst.com`. Next.js 16 (App Router) · React 19 · TypeScript ·
 Tailwind CSS v4 · Motion.
 
 There is no test suite and no test script — verification is `tsc --noEmit`,
-`npm run lint`, and `npm run build`.
+`npm run lint`, and `npm run build`. Lint currently reports 9 known `<img>`
+warnings in the case-study pages and no errors.
 
 ## Commands
 
@@ -26,14 +29,15 @@ npx tsc --noEmit -p tsconfig.json   # type-check only, faster than a full build
 
 ## Configuration
 
-Copy `.env.example` to `.env.local` before relying on live behavior:
+All three env vars are optional — set them in `.env.local` (there is no
+`.env.example`); each has a fallback:
 
 - `NEXT_PUBLIC_BOOKING_URL` — Cal.com/Calendly link every "Get a quote" button
-  opens (defaults to a placeholder Cal.com slug), centralized as `BOOKING_URL`
-  in `lib/content.ts`.
+  opens (defaults to a Cal.com slug), centralized as `BOOKING_URL` in
+  `lib/content.ts`.
 - `NEXT_PUBLIC_SCHEDULER_URL` — optional scheduler embed for `/book`; falls
   back to a styled contact card when unset (`SCHEDULER_URL` in `lib/content.ts`).
-- `NEXT_PUBLIC_AUDIT_WEBHOOK_URL` — webhook the "Free Venue Audit" form
+- `NEXT_PUBLIC_AUDIT_WEBHOOK_URL` — webhook the "Free Marketing Audit" form
   (`components/AuditModal.tsx`) posts to; falls back to a prefilled `mailto:`
   when unset.
 
@@ -41,13 +45,14 @@ Copy `.env.example` to `.env.local` before relying on live behavior:
 
 **`lib/content.ts` is the single source of truth for copy.** Hero text, nav,
 service categories, packages, pricing FAQs, process steps, stats, team,
-testimonials, client logos, and the audit/confirmation page copy all live
+case studies, client logos, and the audit/confirmation page copy all live
 here as typed exports (`HERO`, `SITE`, `NAV`, `SERVICE_CATEGORIES`,
-`PACKAGES`, `STEPS`, `CASE_STUDIES`, etc.). Pages and
-components import from it rather than hardcoding copy, so a content change
-is almost always a `lib/content.ts` edit, not a JSX edit. `lib/channels.ts`
-similarly centralizes the platform list (Instagram/Google/LinkedIn/Facebook/
-TikTok) shared by the homepage platform strip, footer, and hero animation.
+`PACKAGES`, `STEPS`, `CASE_STUDIES`, `PROOF_TICKER`, `HOME_CTA`, etc.). Pages
+and components import from it rather than hardcoding copy, so a content
+change is almost always a `lib/content.ts` edit, not a JSX edit.
+`lib/channels.ts` similarly centralizes the platform list (Instagram/Google/
+LinkedIn/Facebook/TikTok) shared by the homepage channels band, the footer,
+and the dashboard mock (`components/SocialGrowthAnim.tsx`).
 
 **Case studies are the one exception to that rule.** The four pages under
 `app/case-studies/<slug>/page.tsx` (`gaia-antonescu`, `biola-babawale`,
@@ -55,12 +60,31 @@ TikTok) shared by the homepage platform strip, footer, and hero animation.
 engagements, each a fully standalone page with its own local
 `HERO_STATS` / `META` / `PROBLEMS` / `FRAMEWORK` / `RESULTS` consts — not
 data-driven. The `CASE_STUDIES` array in `lib/content.ts` is a *separate,
-parallel* summary of the same four engagements that only feeds the homepage
-carousel (`components/Testimonials.tsx`) and its case-study links. If you
-add, remove, or reslug a case study, update both the standalone page and the
-`CASE_STUDIES` entry, or the carousel and the detail page will drift apart.
-Two of the case-study photos are hotlinked from LinkedIn's CDN with
-signed URLs that expire; check they still resolve before relying on them.
+parallel* summary of the same four engagements that feeds the homepage:
+`ClientResults` (the results cards), the hero's cycling result chip
+(`HeroVisual`), the proof ticker (`PROOF_TICKER` is derived from it) and
+`ClientAvatarStack`. Each entry's optional `highlight` index picks its headline
+metric, read through `headlineMetric()`. If you add, remove, or reslug a case
+study, or change a headline number, update both the standalone page and the
+`CASE_STUDIES` entry, or the homepage and the detail page will drift apart.
+`components/Testimonials.tsx` (the old carousel) is currently unused. Two
+client photos are local (`public/images/case-studies/`); the other two are
+hotlinked from the Webflow CDN (`cdn.prod.website-files.com`) — check they
+still resolve before relying on them.
+
+**Homepage structure** (`app/page.tsx`), top to bottom: `Hero` →
+`ProofTicker` → `Positioning` → `PlatformStrip` (the orange channels band,
+`#channels`) → `ServicesGrid` (photo bento; photos come from
+`SERVICE_CATEGORIES[].image`) → `ClientResults` (`#results`) → `HowWeWork` →
+`PackagesPreview` → FAQ (inline) → `HomeCta`. Rules when editing it:
+- Full-bleed coloured sections are not wrapped in an outer `<Reveal>` —
+  fading a whole band flashes white. Each section reveals its own content.
+- `HomeCta` is homepage-only; every other page uses the shared `CtaBand`.
+  Likewise `Stats` is still used on About, just not on the homepage.
+- `SocialGrowthAnim` lives in the channels band with `toast={false}`, because
+  the hero already shows its exported `NotificationToast`.
+- Stock photos are atmosphere only and are never captioned as clients; faces
+  tied to results are always the real `CASE_STUDIES` photos.
 
 **Booking and the audit modal are both global, not per-page.** `AuditModalProvider`
 wraps the whole app in `app/layout.tsx`, so `useAuditModal()` (`context/AuditModalContext.tsx`)
@@ -72,21 +96,36 @@ watches for `?book=true` / `?audit=true` query params (used by outbound links)
 and triggers the same two flows on page load.
 
 **Design tokens live in `app/globals.css`** under a Tailwind v4 `@theme` block
-(`--color-brand`, `--color-ink`, `--color-mist`, channel-badge colors, etc.) —
-change tokens there, not with inline hex values. The homepage adds `--color-sun`
-/ `--color-lilac` (plus `-soft` tints) and a set of atmosphere utilities in the
-same file (`animate-aurora-a/b/c` drifting glows, `animate-marquee-reverse`,
+(`--color-brand`, `--color-ink`, `--color-mist`, `--color-sun`,
+`--color-lilac` plus `-soft` tints, channel-badge colors, etc.) — change
+tokens there, not with inline hex values. UI surfaces stay flat; gradients,
+glows and drifting blobs are allowed as background atmosphere only, via the
+utilities in the same file (`animate-aurora-a/b/c`, `animate-marquee-reverse`,
 `animate-spin-slow`, `btn-shine`, `bg-dots`), all disabled under
-`prefers-reduced-motion`. Text on `bg-brand` is ink, never white (contrast).
+`prefers-reduced-motion`. Text on `bg-brand` is ink, never white (white on
+brand orange fails contrast).
+
 `components/StatCounter.tsx` (animated count-up, integer values only — see
 its rounding) and `components/ui/Reveal.tsx` (scroll-triggered fade+rise,
 respects reduced-motion) are the two animation primitives reused across
-nearly every section and the case-study pages.
+nearly every section and the case-study pages; `components/ui/Highlight.tsx`
+(marker swipe) and `components/ui/SpinBadge.tsx` (rotating text badge) are
+smaller homepage ones. **Never render different elements or text based on
+`useReducedMotion()`** — it is `null` on the server, so that causes a
+hydration mismatch. Render the same markup and hide motion with
+`motion-reduce:` classes, or change the value after mount.
+
+**Blog & SEO.** Posts are markdown files with frontmatter in `content/blog/`,
+committed by the Soch SEO pipeline and parsed at build time by `lib/blog.ts`
+(keep that file identical across the Soch sites, per its header). Images live
+in `public/blog/`. Structured data helpers are in `lib/seo.ts`; `app/sitemap.ts`,
+`app/robots.ts`, `app/llms.txt` and `app/opengraph-image.tsx` cover the
+machine-readable files.
 
 **Images**: `components/ui/Photo.tsx` wraps `next/image` with a fallback
-prop so callers never branch on whether a real photo exists yet — most
-client/team photos are still absent placeholders. Remote image hosts must be
-allow-listed in `next.config.ts`'s `images.remotePatterns` (currently just
-`cdn.prod.website-files.com`); the case-study pages instead use plain
-`<img>` tags for their hotlinked photos, so they bypass that allowlist
-entirely.
+prop so callers never branch on whether a real photo exists yet. See
+`public/images/README.md` for the rules on which slots take owned photos
+only. Remote image hosts must be allow-listed in `next.config.ts`'s
+`images.remotePatterns` (currently just `cdn.prod.website-files.com`); the
+case-study pages instead use plain `<img>` tags for their hotlinked photos,
+so they bypass that allowlist entirely.
