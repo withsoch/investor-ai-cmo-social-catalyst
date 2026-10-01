@@ -67,7 +67,7 @@ const GALLERY = {
 
 const ANATOMY = {
   title: "Six fixed parts, assembled every week.",
-  image: { src: `${IMG}/meir-statman.jpg`, alt: "Example thumbnail showing host credit, hook, red highlight, portrait, name plate and watermark" },
+  image: { src: "/images/case-studies/Six fixed parts, assembled every week..png", alt: "Example thumbnail showing host credit, hook, red highlight, portrait, name plate and watermark" },
   ratio: "16/9",
   parts: [
     { title: "Host credit", body: "A microphone icon and the host's name, top left." },
@@ -140,7 +140,7 @@ export default function ShapingWealthPage() {
       hero={{
         ratio: "16/9",
         images: [
-          { src: `${IMG}/hal-hershfield.jpg`, alt: "Shaping Wealth thumbnail: Your future self is a stranger" },
+          { src: "/images/case-studies/Making hour-long finance interviews.jpeg", alt: "Shaping Wealth thumbnail: Your future self is a stranger" },
           { src: `${IMG}/annie-duke.jpg`, alt: "Shaping Wealth thumbnail: Why winning requires quitting" },
           { src: `${IMG}/peter-atwater.jpg`, alt: "Shaping Wealth thumbnail: What moves markets before data?" },
         ],
