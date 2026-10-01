@@ -53,8 +53,9 @@ const GALLERY = {
   ratio: "16/9",
   columns: 2 as const,
   images: [
-    { src: `${IMG}/landing-hero.jpg`, alt: "Soch landing page first screen: Done-For-You AI Automation for Businesses" },
-    { src: `${IMG}/vsl.jpg`, alt: "Soch VSL frame with coral burned-in captions" },
+    // both are 16:9 files (the screenshot padded with its own cream), so neither is cropped
+    { src: `${IMG}/landing-hero-16x9.jpg`, alt: "Soch landing page first screen: Done-For-You AI Automation for Businesses" },
+    { src: `${IMG}/vsl-frame.jpg`, alt: "Soch VSL frame with coral burned-in captions" },
   ],
 };
 
@@ -135,7 +136,7 @@ export default function SochLandingPagePage() {
         ratio: "16/9",
         images: [
           { src: `${IMG}/landing-hero.jpg`, alt: "Soch audit landing page first screen", ratio: "5/2" },
-          { src: `${IMG}/vsl.jpg`, alt: "Soch VSL embedded on the landing page" },
+          { src: `${IMG}/vsl-frame.jpg`, alt: "Soch VSL embedded on the landing page" },
         ],
       }}
       meta={META}

@@ -637,7 +637,8 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "Instagram",
     scope: ["Social Media Management", "Design"],
     title: "Building an Instagram presence from zero followers",
-    image: "/images/case-studies/soch-social-media/why-automations-fail.jpg",
+    // 2x upscale of the lossless PNG export: the card is wider than the 672px original
+    image: "/images/case-studies/soch-social-media/why-automations-fail-hd.png",
     imageAlt: "Soch Instagram post: Why 80% of automations fail",
     imageRatio: "3/4",
   },
@@ -648,15 +649,11 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "Landing page + VSL",
     scope: ["Landing Page", "VSL", "Copy & Design"],
     title: "One page with one job: book the call",
-    image: "/images/case-studies/One page with one job book the call.jpeg",
+    // the 1600x586 screenshot cut to the 16:10 card frame: empty side margins
+    // trimmed, nav kept at the top, page cream added around the hero copy
+    image: "/images/case-studies/soch-landing-page/card-16x10.jpg",
     imageAlt: "Soch audit landing page: Done-For-You AI Automation for Businesses",
     imageRatio: "16/9",
-    // A wide page screenshot (1600x586) in the 16:10 card frame. Cover would cut
-    // the logo and the CTA, so: contain, then scale 1.34x to trim just the empty
-    // side margins (logo and CTA stay in), and paint the thin strips left above
-    // and below in the screenshot's own nav-black and page-cream so it reads as
-    // one image filling the box. !scale also holds it still on card hover.
-    imageFocus: "!object-contain !scale-[1.34] bg-[linear-gradient(to_bottom,#0b0708_50%,#f5efdf_50%)]",
   },
   {
     slug: "etz-riz",
@@ -679,15 +676,11 @@ export const WORK_CASE_STUDIES: WorkCaseStudy[] = [
     platform: "YouTube",
     scope: ["Thumbnail Design", "Channel Branding"],
     title: "Making hour-long finance interviews impossible to scroll past",
-    image: "/images/case-studies/Making hour-long finance interviews.jpeg",
+    // the 749x421 thumbnail cut to the 16:10 card frame: white rounded corners
+    // trimmed, its own dark background extended above, bottom edge untouched
+    image: "/images/case-studies/shaping-wealth/card-16x10.jpg",
     imageAlt: "Shaping Wealth thumbnail: Your Future Self Is A Stranger, with Hal Hershfield",
     imageRatio: "16/9",
-    // A 16:9 thumbnail (749x421) in the 16:10 card frame. Cover would cut the
-    // logo (top right) or the headline (left), so: contain, scale 1.04x to trim
-    // only the rounded white corners, nudge it left so the logo clears the
-    // card's rounded top-right corner, and paint the thin strips above and below
-    // in the thumbnail's own edge colours. !scale also holds it still on hover.
-    imageFocus: "!object-contain !scale-[1.04] !translate-x-[-1.35%] bg-[linear-gradient(to_bottom,#18181a_50%,#0e101c_50%)]",
   },
   // Every image in the two below is AI-generated (the candid sets are built to
   // look like customer photos), so keep that labelling visible on the pages.

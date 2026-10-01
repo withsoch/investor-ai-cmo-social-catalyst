@@ -69,6 +69,8 @@ export type WorkCaseStudyProps = {
     items: (Item & { tag: string; image?: WorkImage })[];
     /** object-position for the card images; defaults to the top of the frame. */
     imageFocus?: string;
+    /** Card image ratio; defaults to 16/9. */
+    imageRatio?: string;
   };
   /** `label` defaults to "How it runs". Four or five steps fill the row. */
   process: { label?: string; title: string; lead?: string; steps: Item[]; standards: string[] };
@@ -375,7 +377,7 @@ export function WorkCaseStudy(p: WorkCaseStudyProps) {
               <Reveal key={it.title} delay={(i % 2) * 0.06} className="h-full">
                 <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-cream ring-1 ring-line">
                   {it.image && (
-                    <Photo src={it.image.src} alt={it.image.alt} ratio="16/9" sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" imgClassName={range.imageFocus ?? "object-top"} />
+                    <Photo src={it.image.src} alt={it.image.alt} ratio={range.imageRatio ?? "16/9"} sizes="(min-width: 1024px) 26rem, (min-width: 640px) 45vw, 90vw" imgClassName={range.imageFocus ?? "object-top"} />
                   )}
                   <div className="p-6">
                     <span className="text-[0.68rem] font-bold uppercase tracking-widest text-brand">{it.tag}</span>

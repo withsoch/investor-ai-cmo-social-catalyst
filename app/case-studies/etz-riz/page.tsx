@@ -85,7 +85,8 @@ const ANATOMY = {
 
 const RANGE = {
   title: "Four formats doing four different jobs.",
-  imageFocus: "object-[50%_60%]",
+  // the frames are 3:4, so the cards match and nothing is cropped
+  imageRatio: "3/4",
   items: [
     { tag: "Format 01 · Talking head", title: "Direct value delivery", body: "Camera-facing explanation with the hook on screen. The workhorse for anything instructional.", image: { src: `${IMG}/20k-app.jpg`, alt: "Talking-head Reel example" } },
     { tag: "Format 02 · POV skit", title: "Relatability, no teaching", body: "Short bits about client work and corporate life, made to be shared, with no lesson.", image: { src: `${IMG}/client-meeting-skit.jpg`, alt: "POV skit Reel example" } },
