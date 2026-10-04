@@ -221,45 +221,6 @@ export function MethodTeaser() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Testimonials — real client results                                 */
-/* ------------------------------------------------------------------ */
-
-export function Proof() {
-  return (
-    <section className="bg-cream py-20 sm:py-28">
-      <div className="container-x">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-h2">What our clients say</h2>
-          <p className="lead mt-4">Results from founders who ran their LinkedIn with Social Catalyst.</p>
-        </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {TESTIMONIALS.map((t, i) => (
-            <Reveal key={t.name} delay={(i % 2) * 0.06}>
-              <Link href={t.href} className="card-r group flex h-full flex-col bg-white p-6 ring-1 ring-line transition hover:ring-ink/30 sm:p-7">
-                <div className="flex items-baseline gap-3">
-                  <span className="font-[family-name:var(--font-display)] text-4xl font-medium text-brand">{t.metric}</span>
-                  <span className="text-sm text-slate">{t.metricLabel}</span>
-                </div>
-                <blockquote className="mt-4 flex-1 text-[1.02rem] leading-relaxed text-ink">“{t.quote}”</blockquote>
-                <div className="mt-6 flex items-center gap-3">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={t.photo} alt={t.name} className="h-11 w-11 rounded-full object-cover" loading="lazy" />
-                  <div>
-                    <p className="text-sm font-semibold text-ink">{t.name}</p>
-                    <p className="text-xs text-muted">{t.role}</p>
-                  </div>
-                  <span className="ml-auto text-sm font-semibold text-brand-dark opacity-0 transition group-hover:opacity-100">Case study →</span>
-                </div>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
 /*  Closing CTA                                                        */
 /* ------------------------------------------------------------------ */
 
