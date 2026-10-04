@@ -136,6 +136,17 @@ export const DEMO = {
     "Building the strategy pack",
     "Drafting 52 posts",
   ],
+  /**
+   * Progress steps when live generation is on. Live mode reads the website
+   * only (LinkedIn needs the product's scraper), so it says exactly that.
+   */
+  liveStages: [
+    "Reading {site}",
+    "Finding the offer and the buyer",
+    "Pulling colours and fonts",
+    "Choosing a voice and archetype",
+    "Writing 3 sample posts",
+  ],
   posts: [
     {
       id: "p1",

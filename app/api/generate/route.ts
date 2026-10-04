@@ -10,14 +10,17 @@ import { METHOD } from "@/lib/product";
  * path from Content Studio, so live mode writes from the website alone and
  * the preview says so.
  *
- * Off by default. It only runs when ANTHROPIC_API_KEY is set in .env.local;
- * otherwise it answers 501 and the hero plays the scripted example instead.
+ * Off by default. It only runs when ANTHROPIC_API_KEY is set (Vercel env var,
+ * or .env.local locally); otherwise it answers 501 and the hero plays the
+ * scripted example instead. GET tells the page which mode it is in.
  * The prompt follows the Content Studio pipeline in miniature (read →
  * position → write, held to the quality floor) — it does not call Content
  * Studio itself, which is an internal tool.
  *
- * Before this goes on a public URL it needs rate limiting: every request
- * spends API credit.
+ * Every POST spends API credit, so it is rate limited (below). That limit is
+ * best-effort: it lives in each serverless instance's memory. The real caps
+ * are a spend limit on the key in the Anthropic Console and, if needed, a
+ * Vercel Firewall rate-limit rule on /api/generate.
  */
 
 export const runtime = "nodejs";
@@ -26,6 +29,35 @@ export const maxDuration = 60;
 const MODEL = "claude-opus-5";
 const MAX_HTML_BYTES = 1_500_000;
 const MAX_TEXT_CHARS = 60_000;
+
+/* ---------------- rate limiting (per instance, best-effort) ---------------- */
+
+const PER_VISITOR = 3; // live previews per visitor per window
+const PER_INSTANCE = 60; // all visitors combined, per instance per window
+const WINDOW_MS = 60 * 60 * 1000;
+const hits = new Map<string, number[]>();
+let instanceHits: number[] = [];
+
+function visitorKey(req: Request) {
+  const fwd = req.headers.get("x-forwarded-for") ?? "";
+  return fwd.split(",")[0].trim() || req.headers.get("x-real-ip") || "unknown";
+}
+
+/** Records the attempt and says whether it is allowed. */
+function allow(key: string): boolean {
+  const now = Date.now();
+  const recent = (hits.get(key) ?? []).filter((t) => now - t < WINDOW_MS);
+  instanceHits = instanceHits.filter((t) => now - t < WINDOW_MS);
+  if (recent.length >= PER_VISITOR || instanceHits.length >= PER_INSTANCE) {
+    hits.set(key, recent);
+    return false;
+  }
+  recent.push(now);
+  instanceHits.push(now);
+  hits.set(key, recent);
+  if (hits.size > 5000) hits.clear(); // never let the map grow without bound
+  return true;
+}
 
 const ResultSchema = z.object({
   brand: z.object({
@@ -56,7 +88,7 @@ Two posts are for the founder's personal profile ("linkedin"), one for the compa
 The quality floor every post must pass:
 ${METHOD.floor.map((f) => `- ${f}`).join("\n")}
 
-Write like a specific founder talking to a peer. Use only facts present on the site; never invent customers, numbers or results. If the site gives no proof, write ideas and opinions rather than results. Keep each post under 90 words. No hashtags, no emoji, no em dashes, no "Here's the thing", no closing question asking for engagement.`;
+Write like a specific founder talking to a peer. Use only facts present on the site; never invent customers, numbers or results. If the site gives no proof, write ideas and opinions rather than results. Each post is 50 to 90 words. This limit is strict: count before you finish. No hashtags, no emoji, no em dashes, no "Here's the thing", no closing question asking for engagement.`;
 
 /** Accepts a bare public hostname only — no IPs, ports, localhost or paths. */
 function parseHost(raw: unknown): string | null {
@@ -114,9 +146,17 @@ async function fetchSite(host: string): Promise<string> {
   return new TextDecoder().decode(buf);
 }
 
+/** Which mode this deployment is in. Free: no model call. */
+export function GET() {
+  return Response.json({ live: Boolean(process.env.ANTHROPIC_API_KEY) });
+}
+
 export async function POST(req: Request) {
   if (!process.env.ANTHROPIC_API_KEY) {
     return Response.json({ error: "live generation disabled" }, { status: 501 });
+  }
+  if (!allow(visitorKey(req))) {
+    return Response.json({ error: "preview limit reached, try again in an hour" }, { status: 429 });
   }
 
   const body = await req.json().catch(() => ({}));

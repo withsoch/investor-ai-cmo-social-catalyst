@@ -35,13 +35,21 @@ export function PostCard({
   post,
   brand,
   className = "",
+  fit = false,
 }: {
   post: DemoPost;
   brand: Pick<Brand, "name" | "colors">;
   className?: string;
+  /**
+   * The card sits in a fixed-height slot (the swipe deck). Long copy then
+   * scrolls inside the card, with a fade at the bottom, instead of spilling
+   * out over the buttons. Live posts vary in length, so this has to hold for
+   * any text, not just the demo's.
+   */
+  fit?: boolean;
 }) {
   return (
-    <article className={`card-r flex h-full flex-col bg-white p-5 shadow-[0_18px_40px_-24px_rgba(20,30,25,0.45)] ring-1 ring-line ${className}`}>
+    <article className={`card-r flex h-full flex-col overflow-hidden bg-white p-5 shadow-[0_18px_40px_-24px_rgba(20,30,25,0.45)] ring-1 ring-line ${className}`}>
       <header className="flex flex-wrap items-center gap-3">
         <span
           className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white"
@@ -57,7 +65,11 @@ export function PostCard({
           {post.style}
         </span>
       </header>
-      <p className="mt-4 flex-1 whitespace-pre-line text-[0.92rem] leading-relaxed text-ink-soft">
+      <p
+        className={`mt-4 flex-1 whitespace-pre-line text-[0.92rem] leading-relaxed text-ink-soft ${
+          fit ? "min-h-0 overflow-y-auto overscroll-contain pb-6 pr-1 [mask-image:linear-gradient(to_bottom,black_82%,transparent)]" : ""
+        }`}
+      >
         {post.text}
       </p>
       <footer className="mt-4 flex gap-5 border-t border-line pt-3 text-xs text-muted">
@@ -102,14 +114,14 @@ export function SwipeDeck({
   return (
     <div className={`grid gap-6 ${compact ? "" : "lg:grid-cols-[1fr_15rem]"}`}>
       <div>
-        <div className="relative mx-auto h-[23rem] w-full max-w-[24rem]">
+        <div className="relative mx-auto h-[26rem] w-full max-w-[24rem]">
           {/* the card behind */}
           <div className="absolute inset-0 translate-y-3 scale-[0.96] opacity-70">
-            <PostCard post={next} brand={brand} />
+            <PostCard post={next} brand={brand} fit />
           </div>
           <AnimatePresence initial={false} custom={lastDir}>
             <SwipeCard key={index} onDecide={decide}>
-              <PostCard post={current} brand={brand} />
+              <PostCard post={current} brand={brand} fit />
             </SwipeCard>
           </AnimatePresence>
         </div>

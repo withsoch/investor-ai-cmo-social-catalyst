@@ -38,26 +38,30 @@ function cleanDomain(raw: string) {
 /**
  * The hero's "Generate" flow.
  *
- * - Empty URL → plays the scripted example (Northwind Ledger, fictional).
- * - A URL → asks /api/generate. That route only does real work when
- *   ANTHROPIC_API_KEY is set; otherwise it answers 501 and we fall back to
- *   the example, saying so plainly rather than pretending.
+ * - No links → plays the scripted example (Northwind Ledger, fictional).
+ * - Links → first asks GET /api/generate whether live generation is on
+ *   (free, instant). Off: the demo runs with the visitor's links and says
+ *   it's a demo. On: the honest live steps run while POST does real work.
  *
- * The staged progress always runs for at least ~5s so the example and a fast
- * live response feel the same.
+ * The last step stays active until the result arrives, so a 15-second live
+ * call never shows a screen with every step ticked and nothing happening.
  */
 export function PreviewModal({ input, onClose }: { input: PreviewInput | null; onClose: () => void }) {
   const open = input !== null;
   const [stage, setStage] = useState(0);
   const [result, setResult] = useState<Result | null>(null);
   const [minDone, setMinDone] = useState(false);
+  // "checking" until we know whether this deployment can generate live
+  const [mode, setMode] = useState<"checking" | "live" | "example">("checking");
   const dialogRef = useRef<HTMLDivElement>(null);
 
   const domain = input?.site ? cleanDomain(input.site) : "";
   const linkedin = input?.linkedin ? cleanLinkedin(input.linkedin) : "";
   const shownSite = domain || DEMO.domain;
   const shownLinkedin = linkedin || DEMO.linkedin;
-  const stages = DEMO.stages.map((s) => s.replace("{site}", shownSite).replace("{linkedin}", shownLinkedin));
+  const stages = (mode === "live" ? DEMO.liveStages : DEMO.stages).map((s) =>
+    s.replace("{site}", shownSite).replace("{linkedin}", shownLinkedin),
+  );
 
   // reset + run whenever a new preview is opened
   useEffect(() => {
@@ -66,49 +70,77 @@ export function PreviewModal({ input, onClose }: { input: PreviewInput | null; o
     setStage(0);
     setResult(null);
     setMinDone(false);
+    setMode("checking");
     /* eslint-enable react-hooks/set-state-in-effect */
 
-    const timers: number[] = [];
-    DEMO.stages.forEach((_, i) => {
-      timers.push(window.setTimeout(() => setStage(i + 1), 750 * (i + 1)));
-    });
-    timers.push(window.setTimeout(() => setMinDone(true), 750 * DEMO.stages.length + 300));
-
     let cancelled = false;
+    const timers: number[] = [];
+
+    // Steps advance every 750ms but stop ON the last one: it stays active
+    // ("Drafting…") until the result is in.
+    const runStages = (count: number) => {
+      for (let i = 1; i < count; i++) timers.push(window.setTimeout(() => !cancelled && setStage(i), 750 * i));
+      timers.push(window.setTimeout(() => !cancelled && setMinDone(true), 750 * count));
+    };
+
+    const showExample = (note?: string) => {
+      setMode("example");
+      runStages(DEMO.stages.length);
+      setResult({ ...EXAMPLE, note });
+    };
+
     if (!domain) {
-      setResult(EXAMPLE);
-    } else {
-      fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: domain, linkedin }),
-      })
-        .then(async (r) => {
-          if (cancelled) return;
-          if (r.ok) {
-            const data = await r.json();
-            setResult({
-              mode: "live",
-              domain,
-              linkedin,
-              brand: data.brand,
-              posts: data.posts,
-              note: "Generated from your website. In the full version, your LinkedIn posts and a 10-minute interview set the voice.",
-            });
-          } else {
-            setResult({
-              ...EXAMPLE,
-              note:
-                r.status === 501
-                  ? `This is a demo: live generation is in private beta. Here's what Social Catalyst made from an example company's website and its founder's LinkedIn, in place of ${domain}${linkedin ? ` and ${linkedin}` : ""}.`
-                  : `We couldn't read ${domain} just now. Here's an example company instead.`,
-            });
-          }
-        })
-        .catch(() => {
-          if (!cancelled) setResult({ ...EXAMPLE, note: `We couldn't read ${domain} just now. Here's an example company instead.` });
-        });
+      showExample();
+      return () => {
+        cancelled = true;
+        timers.forEach(clearTimeout);
+      };
     }
+
+    const demoNote = `This is a demo: live generation is in private beta. Here's what Social Catalyst made from an example company's website and its founder's LinkedIn, in place of ${domain}${linkedin ? ` and ${linkedin}` : ""}.`;
+
+    (async () => {
+      const live = await fetch("/api/generate")
+        .then((r) => (r.ok ? r.json() : { live: false }))
+        .then((d: { live?: boolean }) => Boolean(d.live))
+        .catch(() => false);
+      if (cancelled) return;
+      if (!live) return showExample(demoNote);
+
+      setMode("live");
+      runStages(DEMO.liveStages.length);
+      try {
+        const r = await fetch("/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: domain, linkedin }),
+        });
+        if (cancelled) return;
+        if (r.ok) {
+          const data = await r.json();
+          setResult({
+            mode: "live",
+            domain,
+            linkedin,
+            brand: data.brand,
+            posts: data.posts,
+            note: "Generated from your website. In the full version, your LinkedIn posts and a 10-minute interview set the voice.",
+          });
+          return;
+        }
+        // A real failure: say what it was rather than hiding it behind the demo.
+        const reason = ((await r.json().catch(() => ({}))) as { error?: string }).error;
+        setResult({
+          ...EXAMPLE,
+          note:
+            r.status === 429
+              ? "You've used the free live previews for now. Try again in an hour. Here's an example company instead."
+              : `Live generation didn't work this time (${r.status}${reason ? `: ${reason}` : ""}). Here's an example company instead.`,
+        });
+      } catch {
+        if (!cancelled) setResult({ ...EXAMPLE, note: "Live generation didn't respond (network error). Here's an example company instead." });
+      }
+    })();
 
     return () => {
       cancelled = true;
@@ -177,7 +209,10 @@ export function PreviewModal({ input, onClose }: { input: PreviewInput | null; o
               <div className="mx-auto max-w-md py-10">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted">Generating</p>
                 <h2 className="mt-2 text-h3">{shownSite}</h2>
-                <p className="mt-1 text-sm text-slate">{shownLinkedin}</p>
+                <p className="mt-1 text-sm text-slate">
+                  {shownLinkedin}
+                  {mode === "live" && <span className="text-muted"> · voice matching from LinkedIn comes with the full version</span>}
+                </p>
                 <ol className="mt-6 flex flex-col gap-3">
                   {stages.map((s, i) => {
                     const done = stage > i;
@@ -199,6 +234,9 @@ export function PreviewModal({ input, onClose }: { input: PreviewInput | null; o
                     );
                   })}
                 </ol>
+                {mode === "live" && minDone && (
+                  <p className="mt-5 text-sm text-slate">Writing in your voice. This usually takes about 15 seconds.</p>
+                )}
               </div>
             ) : (
               <div>
