@@ -34,7 +34,7 @@ const SITE_ENTITY = {
   "@type": "Organization",
   name: "Social Catalyst",
   url: SEO_SITE_URL,
-  description: "Social Catalyst runs Instagram, LinkedIn, Google and review replies for B2B and growing businesses. Clients approve every post.",
+  description: "Social Catalyst is marketing on autopilot for B2B founders: LinkedIn and social posts written in your voice, approved with a swipe.",
   sameAs: ["https://www.linkedin.com/company/social-catalyst/"],
 };
 
@@ -46,35 +46,33 @@ export const metadata: Metadata = {
     apple: "/logos/favicon-icon.png",
   },
   title: {
-    default: "Social Media Marketing for B2B & Growing Businesses",
+    default: "Social Catalyst: Marketing on autopilot for B2B founders",
     template: "%s",
   },
   description:
-    "We run Instagram, LinkedIn, Google and review replies for B2B and growing businesses. You approve every post. Get a quote for your package.",
+    "Social Catalyst writes and posts your LinkedIn and social in your voice. Add your website, swipe to approve, or run it on autopilot. From $149 a month.",
   keywords: [
-    "B2B social media marketing",
-    "LinkedIn marketing agency",
-    "social media management for businesses",
-    "Google Business Profile management",
-    "business review management",
-    "Instagram management for businesses",
-    "LinkedIn outreach management",
-    "lead generation agency",
-    "B2B marketing agency",
+    "AI LinkedIn ghostwriter",
+    "LinkedIn content for founders",
+    "AI social media marketing",
+    "founder-led marketing",
+    "B2B LinkedIn automation",
+    "marketing on autopilot",
+    "AI content in your voice",
   ],
   openGraph: {
-    title: "Social Catalyst: Social Media Marketing for B2B & Growing Businesses",
+    title: "Social Catalyst: Marketing on autopilot for B2B founders",
     description:
-      "We run Instagram, LinkedIn, Google and review replies for B2B and growing businesses. You approve every post. Get a quote for your package.",
+      "Social Catalyst writes and posts your LinkedIn and social in your voice. Add your website, swipe to approve, or run it on autopilot. From $149 a month.",
     url: SITE_URL,
     siteName: "Social Catalyst",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Social Catalyst: Social Media Marketing for B2B & Growing Businesses",
+    title: "Social Catalyst: Marketing on autopilot for B2B founders",
     description:
-      "We run Instagram, LinkedIn, Google and review replies for B2B and growing businesses. You approve every post. Get a quote for your package.",
+      "Social Catalyst writes and posts your LinkedIn and social in your voice. Add your website, swipe to approve, or run it on autopilot. From $149 a month.",
   },
 };
 

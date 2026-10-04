@@ -15,17 +15,18 @@ export function GET() {
 
   const body = `# Social Catalyst
 
-> Social Catalyst runs Instagram, LinkedIn, Google and review replies for B2B and growing businesses. Clients approve every post.
+> Social Catalyst is marketing on autopilot for B2B founders. Add your website and it drafts a month of LinkedIn and social posts in your voice; approve with a swipe or run it on autopilot. Plans from $149/month.
 
 ## Pages
 
+- [How it works](${SITE_URL}/how-it-works)
+- [Pricing](${SITE_URL}/pricing)
+- [The Catalyst Method](${SITE_URL}/method)
+- [Solutions](${SITE_URL}/solutions)
 - [About](${SITE_URL}/about)
-- [Services](${SITE_URL}/services)
-- [Packages](${SITE_URL}/packages)
 - [Case studies](${SITE_URL}/case-studies)
 - [Blog](${SITE_URL}/blog)
-- [Audit](${SITE_URL}/audit)
-- [Book](${SITE_URL}/book)
+- [Contact sales](${SITE_URL}/book)
 
 ## Posts
 

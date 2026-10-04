@@ -10,7 +10,7 @@ import { ImageResponse } from "next/og";
 // plain markup and inline SVG.
 
 export const alt =
-  "Social Catalyst: social media marketing for B2B and growing businesses";
+  "Social Catalyst: marketing on autopilot for B2B founders";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -58,7 +58,7 @@ export default function OpengraphImage() {
               maxWidth: 940,
             }}
           >
-            Get more of the right people finding you first.
+            Marketing on autopilot for B2B founders.
           </div>
           <div
             style={{
@@ -68,7 +68,7 @@ export default function OpengraphImage() {
               color: "#4c534f",
             }}
           >
-            Instagram · LinkedIn · Google · reviews — get a quote
+            LinkedIn and social, written in your voice · from $149/mo
           </div>
         </div>
 

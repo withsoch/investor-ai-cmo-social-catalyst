@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/components/Logo";
-import { BookButton } from "@/components/BookButton";
 import { Icon } from "@/components/Icons";
-import { NAV, CTAS } from "@/lib/content";
+import { NAV_PRIMARY as NAV, CTA } from "@/lib/product";
+import { SoundToggle } from "@/components/pivot/SoundToggle";
+import { play } from "@/lib/sound";
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -31,8 +32,8 @@ export function Header() {
     <header
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-line/80 bg-white/85 backdrop-blur-md"
-          : "border-b border-transparent bg-white/0"
+          ? "border-b border-line bg-white/95 shadow-[0_6px_20px_-14px_rgba(20,30,25,0.35)] backdrop-blur-md"
+          : "border-b border-line bg-white"
       }`}
     >
       <div className="container-x flex h-[4.5rem] items-center justify-between gap-4">
@@ -57,22 +58,32 @@ export function Header() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <BookButton variant="primary" size="md">
-            {CTAS.primary.label}
-          </BookButton>
+        <div className="hidden items-center gap-1 md:flex">
+          <SoundToggle />
+          <Link href={CTA.login.href} className="rounded-full px-3 py-2 text-[0.95rem] font-medium text-slate hover:text-ink">
+            {CTA.login.label}
+          </Link>
+          <Link href={CTA.sales.href} className="hidden rounded-full px-3 py-2 text-[0.95rem] font-medium text-slate hover:text-ink lg:inline-flex">
+            {CTA.sales.label}
+          </Link>
+          <Link href={CTA.start.href} onClick={() => play("tap")} className="ml-2 rounded-lg bg-brand px-5 py-2.5 text-[0.95rem] font-semibold text-ink transition-colors hover:bg-brand-light">
+            {CTA.start.label}
+          </Link>
         </div>
 
         {/* mobile toggle */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-ink ring-1 ring-line md:hidden"
-        >
-          <Icon name={open ? "close" : "menu"} className="h-6 w-6" />
-        </button>
+        <div className="flex items-center gap-1 md:hidden">
+          <SoundToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-ink ring-1 ring-line"
+          >
+            <Icon name={open ? "close" : "menu"} className="h-6 w-6" />
+          </button>
+        </div>
       </div>
 
       {/* mobile panel */}
@@ -99,9 +110,12 @@ export function Header() {
             );
           })}
           <div className="mt-2 flex flex-col gap-2.5">
-            <BookButton variant="primary" size="lg" className="w-full">
-              {CTAS.primary.label}
-            </BookButton>
+            <Link href={CTA.start.href} onClick={() => play("tap")} className="w-full rounded-lg bg-brand px-6 py-3 text-center text-base font-semibold text-ink">
+              {CTA.start.label}
+            </Link>
+            <Link href={CTA.sales.href} className="w-full rounded-lg px-6 py-3 text-center text-base font-semibold text-ink ring-1 ring-line">
+              {CTA.sales.label}
+            </Link>
           </div>
         </div>
       </div>
