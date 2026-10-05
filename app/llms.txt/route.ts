@@ -23,6 +23,7 @@ export function GET() {
 - [Pricing](${SITE_URL}/pricing)
 - [The Catalyst Method](${SITE_URL}/method)
 - [Solutions](${SITE_URL}/solutions)
+- [Integrations (coming soon)](${SITE_URL}/integrations)
 - [About](${SITE_URL}/about)
 - [Case studies](${SITE_URL}/case-studies)
 - [Blog](${SITE_URL}/blog)

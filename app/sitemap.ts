@@ -11,7 +11,7 @@ import { SITE_URL } from "@/lib/seo";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
-    "", "/how-it-works", "/pricing", "/method", "/solutions", ...CHANNELS.map((c) => `/solutions/${c.slug}`), "/about", "/get-started", "/case-studies", "/case-studies/biola-babawale", "/case-studies/gaia-antonescu", "/case-studies/kaitlin-malaspina", "/case-studies/shahzad-akhtar", "/case-studies/soch-social-media", "/case-studies/soch-landing-page", "/case-studies/etz-riz", "/case-studies/shaping-wealth", "/case-studies/bruto-bakehouse", "/case-studies/restoran-loulou", "/blog", "/book",
+    "", "/how-it-works", "/pricing", "/method", "/solutions", "/integrations", ...CHANNELS.map((c) => `/solutions/${c.slug}`), "/about", "/get-started", "/case-studies", "/case-studies/biola-babawale", "/case-studies/gaia-antonescu", "/case-studies/kaitlin-malaspina", "/case-studies/shahzad-akhtar", "/case-studies/soch-social-media", "/case-studies/soch-landing-page", "/case-studies/etz-riz", "/case-studies/shaping-wealth", "/case-studies/bruto-bakehouse", "/case-studies/restoran-loulou", "/blog", "/book",
     
   ].map((route) => ({ url: `${SITE_URL}${route}` }));
 

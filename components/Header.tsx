@@ -46,7 +46,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors ${
+                className={`whitespace-nowrap rounded-full px-2.5 py-2 text-[0.9rem] font-medium transition-colors lg:px-4 lg:text-[0.95rem] ${
                   active
                     ? "bg-[#1a1a1a] text-white"
                     : "text-slate hover:bg-mist hover:text-ink"
@@ -60,13 +60,13 @@ export function Header() {
 
         <div className="hidden items-center gap-1 md:flex">
           <SoundToggle />
-          <Link href={CTA.login.href} className="rounded-full px-3 py-2 text-[0.95rem] font-medium text-slate hover:text-ink">
+          <Link href={CTA.login.href} className="hidden whitespace-nowrap rounded-full px-3 py-2 text-[0.95rem] font-medium text-slate hover:text-ink lg:inline-flex">
             {CTA.login.label}
           </Link>
-          <Link href={CTA.sales.href} className="hidden rounded-full px-3 py-2 text-[0.95rem] font-medium text-slate hover:text-ink lg:inline-flex">
+          <Link href={CTA.sales.href} className="hidden whitespace-nowrap rounded-full px-3 py-2 text-[0.95rem] font-medium text-slate hover:text-ink xl:inline-flex">
             {CTA.sales.label}
           </Link>
-          <Link href={CTA.start.href} onClick={() => play("tap")} className="ml-2 rounded-lg bg-brand px-5 py-2.5 text-[0.95rem] font-semibold text-ink transition-colors hover:bg-brand-light">
+          <Link href={CTA.start.href} onClick={() => play("tap")} className="ml-2 whitespace-nowrap rounded-lg bg-brand px-4 py-2.5 lg:px-5 text-[0.95rem] font-semibold text-ink transition-colors hover:bg-brand-light">
             {CTA.start.label}
           </Link>
         </div>
@@ -89,7 +89,7 @@ export function Header() {
       {/* mobile panel */}
       <div
         className={`md:hidden overflow-hidden border-t border-line bg-white transition-[max-height] duration-300 ease-out ${
-          open ? "max-h-96" : "max-h-0 border-t-transparent"
+          open ? "max-h-[30rem]" : "max-h-0 border-t-transparent"
         }`}
       >
         <div className="container-x flex flex-col gap-1 py-4">

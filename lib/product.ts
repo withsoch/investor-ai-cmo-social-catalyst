@@ -37,6 +37,7 @@ export const PRODUCT = {
 
 export const NAV_PRIMARY = [
   { label: "Solutions", href: "/solutions" },
+  { label: "Integrations", href: "/integrations" },
   { label: "How it works", href: "/how-it-works" },
   { label: "Method", href: "/method" },
   { label: "Pricing", href: "/pricing" },
@@ -428,5 +429,68 @@ export const ABOUT = {
     { t: "A floor, not a ceiling", d: "Nothing generic ships. Every post has to say something only you could say." },
     { t: "Honest numbers", d: "We show real client results or nothing." },
     { t: "Baltic at heart, built for anywhere", d: "Made in Tallinn, one of the most digital places on earth." },
+  ],
+};
+
+/* ------------------------------------------------------------------ */
+/*  Integrations (coming soon): the "hears your week" layer            */
+/*  None of these are built. Every surface that shows them says so.    */
+/* ------------------------------------------------------------------ */
+
+export const INTEGRATIONS = {
+  eyebrow: "Integrations · coming soon",
+  title: "Your 24/7 Head of Content already heard your week.",
+  lead: "Connect the places your company's best stories already happen. Social Catalyst listens, picks the moments worth posting, and brings you ideas with the exact line they came from. Nothing goes out without your yes.",
+  groups: [
+    {
+      k: "Meetings",
+      d: "Customer calls, demos and team syncs become stories, proof and opinions.",
+      tools: ["Fireflies", "Otter", "Granola", "Fathom", "Zoom", "Google Meet"],
+      color: "#FF5C35",
+    },
+    {
+      k: "Team chat",
+      d: "Wins, launches and customer praise from the channels you choose. Approve posts without leaving Slack.",
+      tools: ["Slack"],
+      color: "#9B7BFF",
+    },
+    {
+      k: "CRM",
+      d: "Closed deals turn into proof posts, and you see which posts led to booked meetings.",
+      tools: ["HubSpot", "Attio"],
+      color: "#1F8A66",
+    },
+    {
+      k: "Product",
+      d: "Releases and changelogs become launch posts the day they ship.",
+      tools: ["GitHub", "Linear"],
+      color: "#1F7A8C",
+    },
+  ],
+  /** Example idea inbox (fictional company), shown with its sources. */
+  inbox: [
+    {
+      source: "Fireflies",
+      where: "Tuesday call with a finance lead",
+      quote: "We stopped exporting to Excel the week we switched.",
+      idea: "The Proof: the week a customer stopped exporting to Excel, and what replaced it",
+    },
+    {
+      source: "Slack",
+      where: "#wins",
+      quote: "Closed our first 200-person customer today.",
+      idea: "The Narrator: what changed between our first 20-person customer and our first 200-person one",
+    },
+    {
+      source: "Linear",
+      where: "Release 4.2",
+      quote: "Bank feeds now reconcile overnight.",
+      idea: "The Teacher: three month-end jobs that should never wait for a human",
+    },
+  ],
+  trust: [
+    "Nothing from a meeting is ever posted without your approval",
+    "Client names are removed by default",
+    "A never-mention list you control",
   ],
 };
